@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>自适应屏幕</title>
+    <meta name="viewport" content="width=800, user-scalable=no">
+    <script>
+        'use strict';
+
+        var UA = navigator.userAgent,
+            isAndroid = /android|adr/gi.test(UA),
+            isIos = /iphone|ipod|ipad/gi.test(UA) && !isAndroid, // 据说某些国产机的UA会同时包含 android iphone 字符
+            isMobile = isAndroid || isIos;  // 粗略的判断
+
+        var metaEl = document.querySelector('meta[name="viewport"]'),
+            metaCtt = (metaEl ? metaEl.content : '').replace(/\s*/g, '');
+
+        var kvs = metaCtt.split(','), data = {};
+        for (var i = 0; i < kvs.length; i++) {
+            var kv = kvs[i].split('=');
+            if (/width/.test(kv[0])) {
+                data.width = kv[1];
+            }
+            data[kv[0]] = kv[1];
+        }
+        data.width = parseInt(data.width, 10) || 500;
+
+        function fixScreen() {
+            if (isMobile || window.screen.availWidth < data.width) { // 定宽
+                alert(window.screen.availWidth);
+                if (isAndroid) {
+                    var medium_dpi = data.width / window.screen.availWidth * window['devicePixelRatio'] * 160;
+
+                    medium_dpi = medium_dpi.toFixed(2);
+
+                    data['target-densitydpi'] = medium_dpi;
+                } else {
+                    var scale = window.screen.availWidth / data.width;
+
+                    scale = scale.toFixed(2);
+                    alert(scale);
+
+                    data['initial-scale'] = data['maximum-scale'] = data['minimum-scale'] = scale;
+                }
+
+                metaEl.content = JSON.stringify(data).replace(/\s*/g, '').replace(/[{}"]/g, '').replace(/:/g, '=');
+            } else {
+                metaEl.content = 'width=device-width, user-scalable=no';
+            }
+
+            var elementById = document.getElementById('explain_portrait_and_landscape');
+            if (elementById === null) {
+                return;
+            }
+
+            if (window['orientation'] === 180 || window['orientation'] === 0) {
+                elementById.style.display = 'none';
+            } else if (window['orientation'] === 90 || window['orientation'] === -90) {
+                elementById.style.display = 'block';
+            }
+        }
+
+        fixScreen();
+
+        window.addEventListener('load', fixScreen, false);
+        //判断手机横竖屏状态：
+        window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", fixScreen, false);
+        //移动端的浏览器一般都支持window.orientation这个参数，通过这个参数可以判断出手机是处在横屏还是竖屏状态。
+    </script>
+    <style>
+        *, *:before, *:after {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            border: none;
+        }
+
+        .test {
+            width: 500px;
+            height: 300px;
+
+            background-color: #222222;
+        }
+
+        #explain_portrait_and_landscape {
+            color: darkslateblue;
+            text-align: center;
+            background: url("parchment-2123461_1280.jpg") no-repeat;
+            background-size: cover;
+
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+
+            display: none;
+        }
+
+        #explain_portrait_and_landscape > *, #explain_portrait_and_landscape:after {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        #explain_portrait_and_landscape:after {
+            content: '';
+            width: 0;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="test"></div>
+<div id="explain_portrait_and_landscape"><div>请竖起你的设备，谢谢合作！</div></div>
+</body>
+</html>

@@ -1,24 +1,65 @@
 .App {
-  text-align: center;
+    text-align: center;
+    width: 750px;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+    background-color: #222;
+    width: inherit;
+    height: 150px;
+    padding: 20px;
+    color: white;
 }
 
 .App-intro {
-  font-size: large;
+    width: inherit;
+    font-size: large;
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.test {
+    width: 750px;
+    height: 300px;
+
+    background-color: #222222;
+}
+
+#explain_portrait_and_landscape {
+    color: whitesmoke;
+    text-align: center;
+    font-size: xx-large;
+    text-shadow: 1px 1px 2px black;
+
+    background: url("parchment-2123461_1280.jpg") no-repeat;
+    background-size: cover;
+
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+#explain_portrait_and_landscape > *, #explain_portrait_and_landscape:after {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#explain_portrait_and_landscape:after {
+    content: '';
+    width: 0;
+    height: 100%;
 }
