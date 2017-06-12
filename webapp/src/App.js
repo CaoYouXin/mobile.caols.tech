@@ -1,14 +1,26 @@
 import React, {Component} from "react";
-import fixScreen from "./util/FixScreen";
-import logo from "./logo.svg";
 import "./App.css";
+import fixScreen from "./util/FixScreen";
+import Header from "./header/Header";
+import List from "./list/List";
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            landscape: null
+            landscape: null,
+            briefHeader: true,
+            active: 'category'
         };
+
+        this.selectActive = this.selectActive.bind(this);
+    }
+
+    selectActive(active) {
+        this.setState({
+            active: active,
+            briefHeader: !this.state.briefHeader
+        });
     }
 
     componentWillMount() {
@@ -28,15 +40,9 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <div className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <h2>Welcome to React</h2>
-                </div>
-                <p className="App-intro">
-                    To get started, edit <code>src/App.js</code> and save to reload.
-                </p>
-                <div className="test"></div>
-                {this.state.landscape && <div id="explain_portrait_and_landscape">
+                <Header brief={this.state.briefHeader} />
+                <List active={this.state.active} selectActive={this.selectActive} />
+                {this.state.landscape && <div id="explain_portrait_and_landscape" className="v-mid-box">
                     <div>请竖起你的设备，谢谢合作！</div>
                 </div>}
             </div>

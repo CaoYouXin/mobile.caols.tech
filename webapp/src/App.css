@@ -3,40 +3,6 @@
     width: 750px;
 }
 
-.App-logo {
-    animation: App-logo-spin infinite 20s linear;
-    height: 80px;
-}
-
-.App-header {
-    background-color: #222;
-    width: inherit;
-    height: 150px;
-    padding: 20px;
-    color: white;
-}
-
-.App-intro {
-    width: inherit;
-    font-size: large;
-}
-
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.test {
-    width: 750px;
-    height: 300px;
-
-    background-color: #222222;
-}
-
 #explain_portrait_and_landscape {
     color: whitesmoke;
     text-align: center;
@@ -47,18 +13,19 @@
     background-size: cover;
 
     position: fixed;
+    z-index: 300000;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
 }
 
-#explain_portrait_and_landscape > *, #explain_portrait_and_landscape:after {
+.v-mid-box > *, .v-mid-box:after {
     display: inline-block;
     vertical-align: middle;
 }
 
-#explain_portrait_and_landscape:after {
+.v-mid-box:after {
     content: '';
     width: 0;
     height: 100%;

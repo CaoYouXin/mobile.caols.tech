@@ -1,0 +1,88 @@
+.App-header {
+    position: fixed;
+
+    background: #222 url("sky.jpg") center;
+    background-size: cover;
+    width: 750px;
+    height: 220px;
+    color: white;
+
+    transition: all 1s;
+}
+
+.App-logo {
+    position: absolute;
+    top: 50px;
+    left: calc(50% - 40px);
+
+    width: 80px;
+    height: 80px;
+
+    transition: all 1s;
+}
+
+.App-search {
+    position: absolute;
+    top: 150px;
+    right: calc(50% - 200px);
+
+    width: 400px;
+    height: 40px;
+
+    display: inline-block;
+    padding: 5px;
+    border: solid 1px #ddd;
+    border-radius: 5px;
+    background-color: whitesmoke;
+
+    transition: all 1s;
+}
+
+.App-search > *, .App-search:after {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.App-search:after {
+    content: '';
+    width: 0;
+    height: 100%;
+}
+
+.App-search > img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.App-search > input {
+    outline: none;
+    border-radius: 5px;
+    padding: 0 5px;
+    width: 345px;
+    height: 30px;
+    line-height: 25px;
+}
+
+.App-search.focused {
+    box-shadow: 0 0 5px blue;
+}
+
+.App-header.brief {
+    top: 0;
+    left: 0;
+    height: 50px;
+}
+
+.App-header.brief > .App-logo {
+    top: 0;
+    left: 0;
+
+    width: 50px;
+    height: 50px;
+}
+
+.App-header.brief > .App-search {
+    top: 5px;
+    right: 10px;
+}

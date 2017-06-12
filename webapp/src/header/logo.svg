@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-100 -100 200 200">
+    <g class="taiqi">
+        <path class="white" fill="#ddd" d="M 0,0 A 50,50 0 0,0 0,100 A 100,100 0 0,1 0,-100 A 50,50 0 0,1 0,0Z" />
+        <path class="black" fill="#555" d="M 0,0 A 50,50 0 0,0 0,-100 A 100,100 0 0,1 0,100 A 50,50 0 0,1 0,0Z" />
+        <circle class="white" cx="0" cy="50" r="15" fill="#ddd"/>
+        <circle class="black" cx="0" cy="-50" r="15" fill="#555"/>
+    </g>
+</svg>
