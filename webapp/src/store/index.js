@@ -5,6 +5,7 @@ import category from './category';
 import post from './post';
 import pager from './pager';
 import selectList from './list';
+import briefHeader from './briefHeader';
 
 export default function configeStore() {
     let middlewares = [thunk];
@@ -17,7 +18,8 @@ export default function configeStore() {
         post,
         category,
         pager,
-        selectList
+        selectList,
+        briefHeader
     }), applyMiddleware(...middlewares));
 }
 

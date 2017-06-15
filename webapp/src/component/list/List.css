@@ -6,6 +6,10 @@
     border-bottom: solid 1px #dddddd;
 }
 
+.App-btns.one > * {
+    width: 100%;
+}
+
 .App-btns.two > * {
     width: 50%;
 }
@@ -14,6 +18,7 @@
     display: inline-block;
     height: 50px;
     line-height: 50px;
+    cursor: default;
 }
 
 .App-btn.active {
@@ -21,25 +26,13 @@
     background-color: midnightblue;
 }
 
-ul.test {
+.App-btn > a {
+  text-decoration: none;
+  color: black;
+}
+
+ul.list {
     width: 750px;
 
     list-style: none;
-}
-
-li.test {
-    width: inherit;
-    height: 100px;
-}
-
-li.test:nth-child(1) {
-    background-color: wheat;
-}
-
-li.test:nth-child(2) {
-    background-color: indianred;
-}
-
-li.test:nth-child(3) {
-    background-color: blueviolet;
 }

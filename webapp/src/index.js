@@ -7,6 +7,8 @@ import './index.css';
 import App from './App';
 import Header from "./component/header/Header";
 import List from "./component/list/List";
+import Category from './component/category/Category';
+import Post from './component/post/Post';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
@@ -15,6 +17,8 @@ ReactDOM.render(
             <App>
                 <Header />
                 <Route exact={true} path='/' component={List} />
+                <Route path='/cateogry/:categoryId' component={Category} />
+                <Route path='/post/:postId' component={Post} />
             </App>
         </Router>
     </Provider>, document.getElementById('root'));
