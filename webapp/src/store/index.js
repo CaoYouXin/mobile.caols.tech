@@ -6,16 +6,19 @@ import post from './post';
 import pager from './pager';
 import selectList from './list';
 
-const list = combineReducers({
-    post,
-    category,
-    pager,
-    selectList
-})
-
 export default function configeStore() {
-    const middlewares = [thunk, logger];
-    return createStore(list, applyMiddleware(...middlewares));
+    let middlewares = [thunk];
+
+    if (process.env.NODE_ENV !== 'production') {
+        middlewares.push(logger);
+    }
+
+    return createStore(combineReducers({
+        post,
+        category,
+        pager,
+        selectList
+    }), applyMiddleware(...middlewares));
 }
 
 export { getPage } from './pager';

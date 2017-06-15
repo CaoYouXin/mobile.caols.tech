@@ -1,8 +1,6 @@
 import React, {Component} from "react";
 import "./App.css";
 import fixScreen from "./util/FixScreen";
-import Header from "./component/header/Header";
-import List from "./component/list/List";
 
 class App extends Component {
     constructor(props) {
@@ -40,8 +38,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <Header brief={this.state.briefHeader} />
-                <List active={this.state.active} selectActive={this.selectActive} />
+                {this.props.children}
                 {this.state.landscape && <div id="explain_portrait_and_landscape" className="v-mid-box">
                     <div>请竖起你的设备，谢谢合作！</div>
                 </div>}
