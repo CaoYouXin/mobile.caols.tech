@@ -1,0 +1,45 @@
+.App-list {
+    width: inherit;
+}
+
+.App-btns {
+    border-bottom: solid 1px #dddddd;
+}
+
+.App-btns.two > * {
+    width: 50%;
+}
+
+.App-btn {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+}
+
+.App-btn.active {
+    color: whitesmoke;
+    background-color: midnightblue;
+}
+
+ul.test {
+    width: 750px;
+
+    list-style: none;
+}
+
+li.test {
+    width: inherit;
+    height: 100px;
+}
+
+li.test:nth-child(1) {
+    background-color: wheat;
+}
+
+li.test:nth-child(2) {
+    background-color: indianred;
+}
+
+li.test:nth-child(3) {
+    background-color: blueviolet;
+}

@@ -19,14 +19,3 @@
     top: 0;
     bottom: 0;
 }
-
-.v-mid-box > *, .v-mid-box:after {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.v-mid-box:after {
-    content: '';
-    width: 0;
-    height: 100%;
-}

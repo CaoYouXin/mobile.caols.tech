@@ -19,6 +19,7 @@ function fixScreen() {
 
     if (isMobile || window.screen.availWidth < data.width) { // 定宽
         let minScreen = Math.min(window.screen.availWidth, window.screen.availHeight);
+        console.log(minScreen);
         if (isAndroid) {
             let medium_dpi = data.width / minScreen * window['devicePixelRatio'] * 160;
 

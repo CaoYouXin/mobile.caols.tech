@@ -5,3 +5,14 @@
     border: none;
     font-family: sans-serif;
 }
+
+.v-mid-box > *, .v-mid-box:after {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.v-mid-box:after {
+    content: '';
+    width: 0;
+    height: 100%;
+}

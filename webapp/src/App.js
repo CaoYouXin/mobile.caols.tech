@@ -1,15 +1,15 @@
 import React, {Component} from "react";
 import "./App.css";
 import fixScreen from "./util/FixScreen";
-import Header from "./header/Header";
-import List from "./list/List";
+import Header from "./component/header/Header";
+import List from "./component/list/List";
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
             landscape: null,
-            briefHeader: true,
+            briefHeader: false,
             active: 'category'
         };
 

@@ -10,6 +10,16 @@
     transition: all 1s;
 }
 
+@keyframes App-logo-spin {
+    from {
+        transform: rotateZ(0deg);
+    }
+
+    to {
+        transform: rotateZ(360deg);
+    }
+}
+
 .App-logo {
     position: absolute;
     top: 50px;
@@ -19,6 +29,8 @@
     height: 80px;
 
     transition: all 1s;
+
+    animation: App-logo-spin 36s linear 0s infinite;
 }
 
 .App-search {

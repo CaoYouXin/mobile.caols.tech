@@ -12,6 +12,7 @@ class HeaderComponent extends Component {
 
         this.inputFocused = this.inputFocused.bind(this);
         this.inputBlur = this.inputBlur.bind(this);
+        this.keyUp = this.keyUp.bind(this);
     }
 
     componentDidMount() {
@@ -24,6 +25,12 @@ class HeaderComponent extends Component {
         this.inputEl.removeEventListener('blur', this.inputBlur);
     }
 
+    keyUp(e) {
+        if (e.keyCode === 13) {
+            alert(this.inputEl.value);
+        }
+    }
+
     inputFocused() {
         this.setState({focused: true});
     }
@@ -34,16 +41,8 @@ class HeaderComponent extends Component {
 
     render() {
         let headerClassName = 'App-header';
-        let afterHeaderHeight = {
-            height: '220px',
-            transition: 'height 1s'
-        };
         if (this.props.brief) {
             headerClassName += ' brief';
-            afterHeaderHeight = {
-                height: '50px',
-                transition: 'height 1s'
-            };
         }
 
         let searchClassName = 'App-search';
@@ -58,10 +57,15 @@ class HeaderComponent extends Component {
                     <br/>
                     <div className={searchClassName}>
                         <img src={search} alt="search"/>
-                        <input ref={(input) => {this.inputEl = input}} type="search" placeholder="搜索" />
+                        <input ref={(input) => {this.inputEl = input}} 
+                            onKeyUp={this.keyUp}
+                        type="search" placeholder="搜索" />
                     </div>
                 </div>
-                <div style={afterHeaderHeight}></div>
+                <div style={{
+                    transition: 'height 1s',
+                    height: this.props.brief ? '50px' : '220px'
+                }}></div>
             </div>
         );
     }
