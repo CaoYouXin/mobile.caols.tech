@@ -10,7 +10,7 @@ class Item extends Component {
         <div className="post-title">{post.name}</div>
         <div className="post-brief">{post.brief}</div>
         <div className="App-btns one">
-          <div className="App-btn"><Link to={`/post/${post.id}`}>详情</Link></div>
+          <div className="App-btn"><Link to={`/post/${post.name}`}>详情</Link></div>
         </div>
       </li>
     );

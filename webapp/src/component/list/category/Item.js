@@ -25,7 +25,7 @@ class Item extends Component {
         <div className="category-title">{category.name}</div>
         <div ref={content => this.contentEl = content} className="category-content"></div>
         <div className="App-btns two">
-          <div className="App-btn" onClick={goDetail}><Link to={`/cateogry/${category.id}`}>详情</Link></div>
+          <div className="App-btn" onClick={goDetail}><Link to={`/cateogry/${category.name}`}>详情</Link></div>
           <div className="App-btn" onClick={goPosts}>Posts</div>
         </div>
       </li>

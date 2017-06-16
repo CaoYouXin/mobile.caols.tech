@@ -16,7 +16,7 @@ class CategoryComponent extends Component {
 
     return (
       <div>
-        Hello World, CategoryId: {match.params.categoryId}.
+        Hello World, CategoryId: {match.params.categoryName}.
       </div>
     );
   }

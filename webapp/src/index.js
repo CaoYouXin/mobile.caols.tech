@@ -17,8 +17,8 @@ ReactDOM.render(
             <App>
                 <Header />
                 <Route exact={true} path='/' component={List} />
-                <Route path='/cateogry/:categoryId' component={Category} />
-                <Route path='/post/:postId' component={Post} />
+                <Route path='/cateogry/:categoryName' component={Category} />
+                <Route path='/post/:postName' component={Post} />
             </App>
         </Router>
     </Provider>, document.getElementById('root'));

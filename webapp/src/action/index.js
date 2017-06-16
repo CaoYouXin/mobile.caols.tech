@@ -1,6 +1,6 @@
 import { getCategories, getPosts } from '../api';
 
-const getCategory = (dispatch) => {
+const getCategory = () => (dispatch) => {
     getCategories().then(response => {
         dispatch({
             type: 'Fetch_Category_Success',
@@ -9,7 +9,7 @@ const getCategory = (dispatch) => {
     });
 }
 
-const getPost = (dispatch) => {
+const getPost = () => (dispatch) => {
     getPosts().then(response => {
         dispatch({
             type: 'Fetch_Post_Success',
@@ -18,19 +18,9 @@ const getPost = (dispatch) => {
     });
 }
 
-const get = (type) => (dispatch) => {
-    let func = null;
-    switch (type) {
-        case 'Category':
-            func = getCategory;
-            break;
-        case 'Post':
-            func = getPost;
-            break;
-        default:
-            throw new Error(`unknown type ${type}`);
-    }
-    func(dispatch);
-}
+const setBrief = (brief) => ({
+  type: 'brief_header',
+  brief
+});
 
-export { get };
+export { getCategory, getPost, setBrief };

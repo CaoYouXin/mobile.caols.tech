@@ -15,7 +15,7 @@ class PostComponent extends Component {
     const { match } = this.props;
     return (
       <div>
-        Hello World, PostId : {match.params.postId}.
+        Hello World, PostId : {match.params.postName}.
       </div>
     );
   }
