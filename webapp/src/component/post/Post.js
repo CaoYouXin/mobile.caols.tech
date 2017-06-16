@@ -1,20 +1,26 @@
 import React, { Component } from "react";
 import "./Post.css";
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { setBrief, getPostByName } from '../../action';
+import { withRouter, Link } from 'react-router-dom';
+import { setBrief, getPostByName, getTop5, getPrevPost, getNextPost } from '../../action';
 import { getUrl } from '../../api';
 
 class PostComponent extends Component {
   componentDidMount() {
-    const { match } = this.props;
-    this.props.fetch(setBrief(true));
-    this.props.fetch(getPostByName(match.params.postName));
+    const { match, fetch } = this.props;
+    fetch(setBrief(true));
+    fetch(getPostByName(match.params.postName));
+    fetch(getTop5());
   }
 
-  componentDidUpdate() {
-    const { post } = this.props;
-    if (!!post) {
+  componentDidUpdate(prevProps) {
+    const { post: prevPost, match: prevMatch } = prevProps;
+    const { post, match, fetch } = this.props;
+    if (prevMatch.params.postName !== match.params.postName) {
+      fetch(getPostByName(match.params.postName));
+    }
+
+    if (!!post && (!prevPost || prevPost.url !== post.url)) {
       getUrl(`http://${document.domain}:8082${post.url}`).then(html => {
         this.contentEl.innerHTML = html;
         let scriptElem = document.createElement('script');
@@ -24,11 +30,14 @@ class PostComponent extends Component {
         // };
         this.contentEl.appendChild(scriptElem);
       });
+
+      fetch(getPrevPost(post.update));
+      fetch(getNextPost(post.update));
     }
   }
 
   render() {
-    const { match, post } = this.props;
+    const { match, post, prev, next, top5 } = this.props;
     return (
       <div className="App-post">
         <h1>{match.params.postName}</h1>
@@ -63,6 +72,28 @@ class PostComponent extends Component {
             </div>
           </div>
         }
+        {
+          prev && next && <div className="App-btns two in-middle">
+            <div className="App-btn">上一篇: {
+              prev.name === '没有上一篇了' ?
+                prev.name :
+                <Link to={`/post/${prev.name}`}>{prev.name}</Link>
+            }</div>
+            <div className="App-btn">下一篇: {
+              next.name === '没有下一篇了' ?
+                next.name :
+                <Link to={`/post/${next.name}`}>{next.name}</Link>
+            }</div>
+          </div>
+        }
+        <div className="top5">
+          <p>TOP 5: </p>
+          <ol className="top5">
+            {top5.map(top => (
+              <li><Link to={`/post/${top.name}`}>{top.name}</Link></li>
+            ))}
+          </ol>
+        </div>
       </div>
     );
   }
@@ -70,7 +101,10 @@ class PostComponent extends Component {
 
 export default withRouter(connect(
   (state) => ({
-    post: state.post
+    post: state.post,
+    prev: state.prev,
+    next: state.next,
+    top5: state.top5
   }),
   (dispatch) => ({
     fetch: dispatch

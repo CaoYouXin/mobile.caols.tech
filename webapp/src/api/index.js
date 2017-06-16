@@ -1,25 +1,4 @@
-const logError = (ret) => {
-  if (ret.code !== 20000) {
-    alert(ret.body);
-    return;
-  }
-
-  return Promise.resolve(ret.body);
-}
-
-const get = (url) => {
-  var myInit = {
-    method: 'GET',
-    mode: 'cors',
-    cache: 'default'
-  };
-
-  var myRequest = new Request(url);
-
-  return fetch(myRequest, myInit).then(function (response) {
-    return response.json().then(logError);
-  });
-}
+import { get } from './base';
 
 const getCategories = () => {
   return get(`http://${document.domain}:8080/blog_api/category/list`);
@@ -52,3 +31,4 @@ const getUrl = (url) => {
 }
 
 export { getCategories, getPosts, getPostsByCategoryName, getPostByName, getUrl };
+export * from './links';

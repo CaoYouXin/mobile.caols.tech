@@ -42,3 +42,4 @@ const setBrief = (brief) => ({
 });
 
 export { getCategory, getPost, getPostByCategoryName, getPostByName, setBrief };
+export * from './links';
