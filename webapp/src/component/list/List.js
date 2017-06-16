@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { getPage } from '../../store';
 import { getCategory, getPost, setBrief } from '../../action';
 import CategoryItem from './category/Item';
-import PostItem from './post/Item';
+import ArticlePostItem from './post/article/Item';
+import AppPostItem from './post/app/Item';
 
 class ListComponent extends Component {
   componentDidMount() {
@@ -26,9 +27,16 @@ class ListComponent extends Component {
         ));
         break;
       case 'Post':
-        items = listData.map(post => (
-          <PostItem key={post.id} post={post} />
-        ));
+        items = listData.map(post => {
+          switch (post.type) {
+            case 'Article':
+              return <ArticlePostItem key={post.id} post={post} />
+            case 'App':
+              return <AppPostItem key={post.id} post={post} />
+            default:
+              throw new Error(`unknown post type ${post.type}`);
+          }
+        });
         break;
       default:
         throw new Error(`unknown select ${listType}`);

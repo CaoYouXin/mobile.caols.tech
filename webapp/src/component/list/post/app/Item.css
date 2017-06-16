@@ -1,0 +1,24 @@
+li.post-item {
+  width: inherit;
+}
+
+li.post-item > .post-title {
+  font-size: xx-large;
+  line-height: 1.5em;
+
+  border-bottom: dashed 1px #dddddd;
+}
+
+li.post-item > .post-content {
+  width: 750px;
+  height: 420px;
+
+  padding: 1em;
+
+  border-bottom: dashed 1px #dddddd;
+}
+
+li.post-item > .post-content > img {
+  width: 100%;
+  height: 100%;
+}

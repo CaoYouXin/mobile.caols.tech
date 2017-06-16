@@ -20,7 +20,7 @@ class Item extends Component {
   }
 
   render() {
-    const { category, goDetail, goPosts } = this.props;
+    const { category, goPosts } = this.props;
     return (
       <li className="category-item">
         <div className="category-title">{category.name}</div>
@@ -29,8 +29,7 @@ class Item extends Component {
           <div className="App-btn">{category.update} 更新</div>
         </div>
         <div ref={content => this.contentEl = content} className="category-content"></div>
-        <div className="App-btns two">
-          <div className="App-btn" onClick={goDetail}><Link to={`/cateogry/${category.name}`}>详情</Link></div>
+        <div className="App-btns one">
           <div className="App-btn"><a href="" onClick={(e) => goPosts(e, category.name)}>Posts</a></div>
         </div>
       </li>
@@ -41,9 +40,6 @@ class Item extends Component {
 export default connect(
   null,
   (dispatch, ownProps) => ({
-    goDetail: () => {
-
-    },
     goPosts: (e, categoryName) => {
       e.preventDefault();
       dispatch(getPostByCategoryName(categoryName))

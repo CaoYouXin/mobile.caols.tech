@@ -17,7 +17,6 @@ ReactDOM.render(
             <App>
                 <Header />
                 <Route exact={true} path='/' component={List} />
-                <Route path='/cateogry/:categoryName' component={Category} />
                 <Route path='/post/:postName' component={Post} />
             </App>
         </Router>

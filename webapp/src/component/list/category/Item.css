@@ -13,8 +13,8 @@ li.category-item > .category-content {
   text-align: left;
   padding: 1em;
 
-  overflow: hidden;
-  max-height: 100px;
+  overflow: auto;
+  max-height: 200px;
 
   border-bottom: dashed 1px #dddddd;
 }
