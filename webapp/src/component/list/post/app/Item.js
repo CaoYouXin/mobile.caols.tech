@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import './Item.css';
-import { Link } from 'react-router-dom';
 
 class Item extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   goDetails(e, url) {
     e.preventDefault();
     window.open(`http://${document.domain}:8082${url}`);

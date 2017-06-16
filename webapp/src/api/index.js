@@ -33,6 +33,10 @@ const getPostsByCategoryName = (categoryName) => {
   return get(`http://${document.domain}:8080/blog_api/post/list_by_category?category=${categoryName}&platform=All,Mobile`);
 }
 
+const getPostByName = (postName) => {
+  return get(`http://${document.domain}:8080/blog_api/post/fetch_by_name?name=${postName}`);
+}
+
 const getUrl = (url) => {
   var myInit = {
     method: 'GET',
@@ -47,4 +51,4 @@ const getUrl = (url) => {
   });
 }
 
-export { getCategories, getPosts, getPostsByCategoryName, getUrl };
+export { getCategories, getPosts, getPostsByCategoryName, getPostByName, getUrl };

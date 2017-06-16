@@ -98,3 +98,7 @@
     top: 13px;
     right: 10px;
 }
+
+.App-search > input[type=search] {
+  box-sizing: border-box;
+}

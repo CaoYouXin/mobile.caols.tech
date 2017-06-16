@@ -7,7 +7,6 @@ import './index.css';
 import App from './App';
 import Header from "./component/header/Header";
 import List from "./component/list/List";
-import Category from './component/category/Category';
 import Post from './component/post/Post';
 import registerServiceWorker from './registerServiceWorker';
 

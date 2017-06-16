@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import pager from './pager';
 import { list as listType, data as listData } from './list';
 import briefHeader from './briefHeader';
+import post from './post';
 
 export default function configeStore() {
   let middlewares = [thunk];
@@ -16,7 +17,8 @@ export default function configeStore() {
     listType,
     listData,
     pager,
-    briefHeader
+    briefHeader,
+    post
   }), applyMiddleware(...middlewares));
 }
 

@@ -2,44 +2,6 @@
     width: inherit;
 }
 
-.App-btns {
-    border-bottom: solid 1px #dddddd;
-}
-
-.App-btns.in-middle {
-  border-bottom: dashed 1px #dddddd;
-}
-
-.App-btns.one > * {
-    width: 100%;
-}
-
-.App-btns.two > * {
-    width: 50%;
-}
-
-.App-btns.three > * {
-    width: 33.33%;
-}
-
-.App-btn {
-    display: inline-block;
-    height: 50px;
-    line-height: 50px;
-    cursor: default;
-}
-
-.App-btn.active {
-    color: #121212;
-    text-shadow: 1px 1px 3px blueviolet;
-    background-color: #dddddd;
-}
-
-.App-btn > a {
-  color: black;
-  text-decoration: underline;
-}
-
 ul.list {
     width: 750px;
 

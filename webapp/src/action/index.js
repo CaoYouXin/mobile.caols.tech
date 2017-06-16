@@ -1,4 +1,4 @@
-import { getCategories, getPosts, getPostsByCategoryName } from '../api';
+import { getCategories, getPosts, getPostsByCategoryName, getPostByName as fetchPostByName } from '../api';
 
 const getCategory = () => (dispatch) => {
   getCategories().then(response => {
@@ -27,9 +27,18 @@ const getPostByCategoryName = (categoryName) => (dispatch) => {
   })
 }
 
+const getPostByName = (postName) => (dispatch) => {
+  fetchPostByName(postName).then(response => {
+    dispatch({
+      type: 'Fetch_Post_by_Name_Success',
+      response
+    });
+  });
+}
+
 const setBrief = (brief) => ({
   type: 'brief_header',
   brief
 });
 
-export { getCategory, getPost, getPostByCategoryName, setBrief };
+export { getCategory, getPost, getPostByCategoryName, getPostByName, setBrief };
