@@ -18,6 +18,10 @@
     width: 50%;
 }
 
+.App-btns.three > * {
+    width: 33.33%;
+}
+
 .App-btn {
     display: inline-block;
     height: 50px;
@@ -26,17 +30,23 @@
 }
 
 .App-btn.active {
-    color: whitesmoke;
-    background-color: midnightblue;
+    color: #121212;
+    text-shadow: 1px 1px 3px blueviolet;
+    background-color: #dddddd;
 }
 
 .App-btn > a {
-  text-decoration: none;
   color: black;
+  text-decoration: underline;
 }
 
 ul.list {
     width: 750px;
 
     list-style: none;
+}
+
+ul.list > li + li {
+  margin-top: 1em;
+  border-top: solid 1px #dddddd;
 }

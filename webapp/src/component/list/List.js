@@ -16,7 +16,7 @@ class ListComponent extends Component {
   }
 
   render() {
-    const { prev, next, listData, listType, selectCategory, selectPost } = this.props;
+    const { prev, next, pager, listData, listType, selectCategory, selectPost } = this.props;
 
     let items = null;
     switch (listType) {
@@ -42,16 +42,18 @@ class ListComponent extends Component {
           <div className={listType === 'Post' ? "App-btn active" : "App-btn"}
             onClick={selectPost}>Post</div>
         </div>
-        <div className="App-btns two v-mid-box">
-          <div className="App-btn" onClick={prev}>Prev</div>
-          <div className="App-btn" onClick={next}>Next</div>
+        <div className="App-btns three v-mid-box">
+          <div className="App-btn"><a href="" onClick={e => prev(e)}>Prev</a></div>
+          <div className="App-btn">{pager.page} / {pager.total}</div>
+          <div className="App-btn"><a href="" onClick={e => next(e)}>Next</a></div>
         </div>
         <ul className="list">
           {items}
         </ul>
-        <div className="App-btns two v-mid-box">
-          <div className="App-btn" onClick={prev}>Prev</div>
-          <div className="App-btn" onClick={next}>Next</div>
+        <div className="App-btns three v-mid-box">
+          <div className="App-btn"><a href="" onClick={e => prev(e)}>Prev</a></div>
+          <div className="App-btn">{pager.page} / {pager.total}</div>
+          <div className="App-btn"><a href="" onClick={e => next(e)}>Next</a></div>
         </div>
       </div>
     );
@@ -61,16 +63,19 @@ class ListComponent extends Component {
 export default connect(
   (state) => ({
     listData: getPage(state.listData, state.pager),
-    listType: state.listType
+    listType: state.listType,
+    pager: state.pager
   }),
   (dispatch) => ({
-    prev: () => {
+    prev: (e) => {
+      e.preventDefault();
       dispatch({
         type: 'go',
         go: -1
       })
     },
-    next: () => {
+    next: (e) => {
+      e.preventDefault();
       dispatch({
         type: 'go',
         go: 1
