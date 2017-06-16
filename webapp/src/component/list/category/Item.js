@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './Item.css';
 import { connect } from 'react-redux';
 import { getUrl } from '../../../api';
+import { getPostByCategoryName } from '../../../action';
 
 class Item extends Component {
   componentDidMount() {
@@ -26,7 +27,7 @@ class Item extends Component {
         <div ref={content => this.contentEl = content} className="category-content"></div>
         <div className="App-btns two">
           <div className="App-btn" onClick={goDetail}><Link to={`/cateogry/${category.name}`}>详情</Link></div>
-          <div className="App-btn" onClick={goPosts}>Posts</div>
+          <div className="App-btn" onClick={() => goPosts(category.name)}>Posts</div>
         </div>
       </li>
     );
@@ -37,10 +38,10 @@ export default connect(
   null,
   (dispatch, ownProps) => ({
     goDetail: () => {
-      
+
     },
-    goPosts: () => {
-      
+    goPosts: (categoryName) => {
+      dispatch(getPostByCategoryName(categoryName))
     }
   })
 )(Item);

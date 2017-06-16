@@ -7,32 +7,30 @@ const logError = (ret) => {
   return Promise.resolve(ret.body);
 }
 
-const getCategories = () => {
+const get = (url) => {
   var myInit = {
     method: 'GET',
     mode: 'cors',
     cache: 'default'
   };
 
-  var myRequest = new Request(`http://${document.domain}:8080/blog_api/category/list`);
+  var myRequest = new Request(url);
 
   return fetch(myRequest, myInit).then(function (response) {
     return response.json().then(logError);
   });
 }
 
+const getCategories = () => {
+  return get(`http://${document.domain}:8080/blog_api/category/list`);
+}
+
 const getPosts = () => {
-  var myInit = {
-    method: 'GET',
-    mode: 'cors',
-    cache: 'default'
-  };
+  return get(`http://${document.domain}:8080/blog_api/post/list`);
+}
 
-  var myRequest = new Request(`http://${document.domain}:8080/blog_api/post/list`);
-
-  return fetch(myRequest, myInit).then(function (response) {
-    return response.json().then(logError);
-  });
+const getPostsByCategoryName = (categoryName) => {
+  return get(`http://${document.domain}:8080/blog_api/post/list_by_category?category=${categoryName}&platform=All,Mobile`);
 }
 
 const getUrl = (url) => {
@@ -49,4 +47,4 @@ const getUrl = (url) => {
   });
 }
 
-export { getCategories, getPosts, getUrl };
+export { getCategories, getPosts, getPostsByCategoryName, getUrl };
