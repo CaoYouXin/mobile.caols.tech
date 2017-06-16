@@ -24,6 +24,10 @@ class Item extends Component {
     return (
       <li className="category-item">
         <div className="category-title">{category.name}</div>
+        <div className="App-btns two in-middle">
+          <div className="App-btn">{category.create}创建</div>
+          <div className="App-btn">{category.update}更新</div>
+        </div>
         <div ref={content => this.contentEl = content} className="category-content"></div>
         <div className="App-btns two">
           <div className="App-btn" onClick={goDetail}><Link to={`/cateogry/${category.name}`}>详情</Link></div>
