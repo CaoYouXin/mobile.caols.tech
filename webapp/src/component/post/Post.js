@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Post.css";
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { setBrief, getPostByName, getTop5, getPrevPost, getNextPost, getPostByCategoryName } from '../../action';
+import { setBrief, getPostByName, getTop5, getPrevPost, getNextPost, getPostByCategoryName, like } from '../../action';
 import { getUrl } from '../../api';
 
 class PostComponent extends Component {
@@ -43,7 +43,7 @@ class PostComponent extends Component {
   }
 
   render() {
-    const { match, post, prev, next, top5, goCategory } = this.props;
+    const { match, post, prev, next, top5, goCategory, processLike } = this.props;
     return (
       <div className="App-post">
         <h1>{match.params.postName}</h1>
@@ -55,11 +55,11 @@ class PostComponent extends Component {
         }
         {
           post && <div className="box-wrapper">
-            <div className="category box">
+            <div className="category box" onClick={() => goCategory(post.categoryName)}>
               <i></i>
-              <span onClick={() => goCategory(post.categoryName)}><Link to="/">{post.categoryName}</Link></span>
+              <span>{post.categoryName}</span>
             </div>
-            <div className="like box">
+            <div className="like box" onClick={() => processLike(post.id)}>
               <i></i>
               <span>{post.like}</span>
             </div>
@@ -68,11 +68,11 @@ class PostComponent extends Component {
         <div ref={content => this.contentEl = content} className="article-content"></div>
         {
           post && <div className="box-wrapper">
-            <div className="category box">
+            <div className="category box" onClick={() => goCategory(post.categoryName)}>
               <i></i>
-              <span onClick={() => goCategory(post.categoryName)}><Link to="/">{post.categoryName}</Link></span>
+              <span>{post.categoryName}</span>
             </div>
-            <div className="like box">
+            <div className="like box" onClick={() => processLike(post.id)}>
               <i></i>
               <span>{post.like}</span>
             </div>
@@ -112,10 +112,14 @@ export default withRouter(connect(
     next: state.next,
     top5: state.top5
   }),
-  (dispatch) => ({
+  (dispatch, ownProps) => ({
     fetch: dispatch,
     goCategory: (categoryName) => {
       dispatch(getPostByCategoryName(categoryName));
+      ownProps.history.push('/');
+    },
+    processLike: (postId) => {
+      dispatch(like(postId));
     }
   })
 )(PostComponent));

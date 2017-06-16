@@ -32,3 +32,4 @@ const getUrl = (url) => {
 
 export { getCategories, getPosts, getPostsByCategoryName, getPostByName, getUrl };
 export * from './links';
+export * from './feedback';
