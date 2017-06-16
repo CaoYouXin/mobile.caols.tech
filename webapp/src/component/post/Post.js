@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Post.css";
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { setBrief, getPostByName, getTop5, getPrevPost, getNextPost } from '../../action';
+import { setBrief, getPostByName, getTop5, getPrevPost, getNextPost, getPostByCategoryName } from '../../action';
 import { getUrl } from '../../api';
 
 class PostComponent extends Component {
@@ -11,6 +11,7 @@ class PostComponent extends Component {
     fetch(setBrief(true));
     fetch(getPostByName(match.params.postName));
     fetch(getTop5());
+    this.justMount = true;
   }
 
   componentDidUpdate(prevProps) {
@@ -20,7 +21,8 @@ class PostComponent extends Component {
       fetch(getPostByName(match.params.postName));
     }
 
-    if (!!post && (!prevPost || prevPost.url !== post.url)) {
+    if (!!post && (!prevPost || prevPost.url !== post.url || this.justMount)) {
+      this.justMount = false;
       getUrl(`http://${document.domain}:8082${post.url}`).then(html => {
         this.contentEl.innerHTML = html;
         let scriptElem = document.createElement('script');
@@ -36,8 +38,12 @@ class PostComponent extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.justMount = false;
+  }
+
   render() {
-    const { match, post, prev, next, top5 } = this.props;
+    const { match, post, prev, next, top5, goCategory } = this.props;
     return (
       <div className="App-post">
         <h1>{match.params.postName}</h1>
@@ -51,7 +57,7 @@ class PostComponent extends Component {
           post && <div className="box-wrapper">
             <div className="category box">
               <i></i>
-              <span>{post.categoryName}</span>
+              <span onClick={() => goCategory(post.categoryName)}><Link to="/">{post.categoryName}</Link></span>
             </div>
             <div className="like box">
               <i></i>
@@ -64,7 +70,7 @@ class PostComponent extends Component {
           post && <div className="box-wrapper">
             <div className="category box">
               <i></i>
-              <span>{post.categoryName}</span>
+              <span onClick={() => goCategory(post.categoryName)}><Link to="/">{post.categoryName}</Link></span>
             </div>
             <div className="like box">
               <i></i>
@@ -90,7 +96,7 @@ class PostComponent extends Component {
           <p>TOP 5: </p>
           <ol className="top5">
             {top5.map(top => (
-              <li><Link to={`/post/${top.name}`}>{top.name}</Link></li>
+              <li key={top.id}><Link to={`/post/${top.name}`}>{top.name}</Link></li>
             ))}
           </ol>
         </div>
@@ -107,6 +113,9 @@ export default withRouter(connect(
     top5: state.top5
   }),
   (dispatch) => ({
-    fetch: dispatch
+    fetch: dispatch,
+    goCategory: (categoryName) => {
+      dispatch(getPostByCategoryName(categoryName));
+    }
   })
 )(PostComponent));

@@ -8,13 +8,15 @@ class Item extends Component {
   componentDidMount() {
     const { category } = this.props;
     getUrl(`http://${document.domain}:8082${category.url}`).then(html => {
-      this.contentEl.innerHTML = html;
-      let scriptElem = document.createElement('script');
-      scriptElem.src = `http://${document.domain}:8082${category.script}`;
-      // scriptElem.onload = function () {
-      //     console.log('halo');
-      // };
-      this.contentEl.appendChild(scriptElem);
+      if (!!this.contentEl) {
+        this.contentEl.innerHTML = html;
+        let scriptElem = document.createElement('script');
+        scriptElem.src = `http://${document.domain}:8082${category.script}`;
+        // scriptElem.onload = function () {
+        //     console.log('halo');
+        // };
+        this.contentEl.appendChild(scriptElem);
+      }
     });
   }
 
