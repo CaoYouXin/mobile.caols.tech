@@ -18,12 +18,13 @@ const getPost = () => (dispatch) => {
   });
 }
 
-const getPostByCategoryName = (categoryName) => (dispatch) => {
+const getPostByCategoryName = (categoryName, history) => (dispatch) => {
   getPostsByCategoryName(categoryName).then(response => {
     dispatch({
       type: 'Fetch_Post_by_Category_Success',
       response
-    })
+    });
+    history.push('/');
   })
 }
 

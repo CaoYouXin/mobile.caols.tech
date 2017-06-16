@@ -2,10 +2,30 @@ import React, { Component } from "react";
 import "./Post.css";
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { setBrief, getPostByName, getTop5, getPrevPost, getNextPost, getPostByCategoryName, like } from '../../action';
+import { setBrief, getPostByName, getTop5, getPrevPost, getNextPost, getPostByCategoryName, like, listComments } from '../../action';
 import { getUrl } from '../../api';
 
 class PostComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      replyFocused: false
+    };
+
+    this.replyFocused = this.replyFocused.bind(this);
+    this.replyBlur = this.replyBlur.bind(this);
+  }
+
+  replyFocused() {
+    window.location.hash = 'reply';
+    this.setState({replyFocused: true});
+  }
+
+  replyBlur() {
+    this.setState({replyFocused: false});
+  }
+
   componentDidMount() {
     const { match, fetch } = this.props;
     fetch(setBrief(true));
@@ -35,6 +55,7 @@ class PostComponent extends Component {
 
       fetch(getPrevPost(post.update));
       fetch(getNextPost(post.update));
+      fetch(listComments(post.id));
     }
   }
 
@@ -43,7 +64,12 @@ class PostComponent extends Component {
   }
 
   render() {
-    const { match, post, prev, next, top5, goCategory, processLike } = this.props;
+    let replyClassName = 'reply';
+    if (this.state.replyFocused) {
+      replyClassName += ' focused';
+    }
+
+    const { match, post, prev, next, top5, goCategory, processLike, comments, history } = this.props;
     return (
       <div className="App-post">
         <h1>{match.params.postName}</h1>
@@ -55,7 +81,7 @@ class PostComponent extends Component {
         }
         {
           post && <div className="box-wrapper">
-            <div className="category box" onClick={() => goCategory(post.categoryName)}>
+            <div className="category box" onClick={() => goCategory(post.categoryName, history)}>
               <i></i>
               <span>{post.categoryName}</span>
             </div>
@@ -68,7 +94,7 @@ class PostComponent extends Component {
         <div ref={content => this.contentEl = content} className="article-content"></div>
         {
           post && <div className="box-wrapper">
-            <div className="category box" onClick={() => goCategory(post.categoryName)}>
+            <div className="category box" onClick={() => goCategory(post.categoryName, history)}>
               <i></i>
               <span>{post.categoryName}</span>
             </div>
@@ -100,6 +126,27 @@ class PostComponent extends Component {
             ))}
           </ol>
         </div>
+        <div id="reply" className={replyClassName}>
+          <div className="title"><span></span>发布评论...</div>
+          <textarea ref={textarea => this.textareaEl = textarea} placeholder="输入评论..."
+            onFocus={this.replyFocused} onBlur={this.replyBlur} 
+            className={replyClassName}></textarea>
+          <div className="publish-btn">发布</div>
+        </div>
+        <ol className="comments" reversed="reversed">
+          {comments.map(commentGroup => (
+            <li key={commentGroup.id}>
+              <div>{commentGroup.userName} : {commentGroup.content} @{commentGroup.create}</div>
+              <ul className="comments-of-comment">
+                {
+                  commentGroup.follows && commentGroup.follows.map(comment => (
+                    <li key={comment.id}>{comment.userName} @ {comment.atUserName} : {comment.content} @{comment.create}</li>
+                  ))
+                }
+              </ul>
+            </li>
+          ))}
+        </ol>
       </div>
     );
   }
@@ -110,13 +157,13 @@ export default withRouter(connect(
     post: state.post,
     prev: state.prev,
     next: state.next,
-    top5: state.top5
+    top5: state.top5,
+    comments: state.comments
   }),
   (dispatch, ownProps) => ({
     fetch: dispatch,
-    goCategory: (categoryName) => {
-      dispatch(getPostByCategoryName(categoryName));
-      ownProps.history.push('/');
+    goCategory: (categoryName, history) => {
+      dispatch(getPostByCategoryName(categoryName, history));
     },
     processLike: (postId) => {
       dispatch(like(postId));

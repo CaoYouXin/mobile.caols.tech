@@ -1,4 +1,4 @@
-import { like as processLike } from '../api';
+import { like as processLike, listComments as fetchComments } from '../api';
 
 const like = (postId) => (dispatch) => {
   processLike(postId).then(response => {
@@ -10,4 +10,13 @@ const like = (postId) => (dispatch) => {
   });
 }
 
-export { like };
+const listComments = (postId) => (dispatch) => {
+  fetchComments(postId).then(response => {
+    dispatch({
+      type: 'Fetch_Comment_Success',
+      response
+    })
+  });
+}
+
+export { like, listComments };

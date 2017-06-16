@@ -6,6 +6,7 @@ import { list as listType, data as listData } from './list';
 import briefHeader from './briefHeader';
 import post from './post';
 import { prev, next, top5 } from './links';
+import comments from './comment';
 
 export default function configeStore() {
   let middlewares = [thunk];
@@ -22,7 +23,8 @@ export default function configeStore() {
     post,
     prev,
     next,
-    top5
+    top5,
+    comments
   }), applyMiddleware(...middlewares));
 }
 

@@ -12,7 +12,33 @@
 ol.top5 {
   margin-top: 0;
   padding: 0;
+  list-style-position: inside; 
+}
+
+ol.top5 > li {
+  padding: 0.5em 0;
+}
+
+ol.comments {
+  text-align: left;
+  padding: 1em;
+  margin-left: 0;
+  list-style: none;
+
+  line-height: 3em;
+}
+
+ol.comments > li + li {
+  border-top: dashed 1px #dddddd;
+}
+
+ul.comments-of-comment {
+  list-style: none;
   margin-left: 1em;
+}
+
+ul.comments-of-comment > li + li {
+  border-top: dashed 1px #dddddd;
 }
 
 /* box */
@@ -94,4 +120,93 @@ ol.top5 {
 .like.box > span {
     color: indianred;
     border-left: solid 1px indianred;
+}
+
+/* reply */
+.reply {
+    width: 730px;
+    height: 75px;
+
+    margin-top: 10px;
+    margin-left: 10px;
+
+    border-radius: 5px;
+    box-shadow: 0 0 10px cyan;
+
+    overflow: hidden;
+
+    transition: height 1s ease-in-out;
+
+    font-size: 0;
+}
+
+.reply > * {
+    font-family: Monaco, "Lucida Console", monospace;
+    font-size: 20px;
+
+    width: 720px;
+    height: 30px;
+
+    margin-top: 5px;
+    margin-left: 5px;
+
+    line-height: 30px;
+}
+
+.reply > .title {
+    text-align: center;
+
+    color: white;
+    background-color: cyan;
+}
+
+.reply > .title > span:hover {
+    background-color: indianred;
+    cursor: default;
+}
+
+.reply > .title > span:before {
+    content: '『';
+}
+
+.reply > .title > span:after {
+    content: '』';
+}
+
+.reply > textarea {
+    outline: none;
+    resize: none;
+
+    line-height: 28px;
+
+    margin-left: 0;
+
+    box-shadow: none;
+
+    border: dashed 1px cyan;
+
+    background-color: transparent;
+
+    transition: height 1s ease-in-out;
+}
+
+.reply > .publish-btn {
+    text-align: center;
+
+    cursor: pointer;
+
+    color: white;
+    background-image: linear-gradient(0deg, #07fff2 0%, #43fdff 50%, cyan 100%);
+}
+
+.reply > .publish-btn:hover {
+    background-image: linear-gradient(0deg, #05faf0 0%, #41fafa 50%, #00fafa 100%);
+}
+
+.reply.focused {
+    height: 230px;
+}
+
+.reply > textarea.focused {
+    height: 150px;
 }
