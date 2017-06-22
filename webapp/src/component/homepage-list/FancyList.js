@@ -93,7 +93,8 @@ class FancyListComponent extends Component {
                   "active": actives[idx]
                 })} onClick={(e) => this.articleClicked(data.name)}>
                   <div className="fancy-list-cover">
-                    <img src={data.screenshot || defaultCover} alt={data.name} width="128" height="128" />
+                    <img src={!!data.screenshot ? `http://${document.domain}:8082${data.screenshot}` : defaultCover}
+                      alt={data.name} width="128" height="128" />
                   </div>
                   <div className="fancy-list-date">
                     {new Date(data.update).toDateString()}
