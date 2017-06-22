@@ -38,11 +38,9 @@ const getPostByName = (postName) => (dispatch) => {
   });
 }
 
-const setBrief = (brief) => ({
-  type: 'brief_header',
-  brief
-});
 
-export { getCategory, getPost, getPostByCategoryName, getPostByName, setBrief };
+
+export { getCategory, getPost, getPostByCategoryName, getPostByName };
 export * from './links';
 export * from './feedback';
+export * from './flags';
