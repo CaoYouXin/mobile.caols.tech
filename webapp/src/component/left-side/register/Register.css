@@ -1,0 +1,71 @@
+.register-root {
+  width: 600px;
+  margin: 30px auto;
+
+  background-color: #333;
+
+  text-align: left;
+
+  padding: 1em;
+}
+
+.register-root > form fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.register-root > form fieldset + fieldset {
+  margin-top: 20px;
+}
+
+.register-root > form span {
+  color: whitesmoke;
+  font-size: x-large;
+}
+
+.register-root > form span:hover,
+.register-root > form span:focus {
+  color: greenyellow;
+}
+
+.register-root > form legend {
+  color: whitesmoke;
+}
+
+.register-root > form input[type="text"],
+.register-root > form input[type="password"] {
+  outline: none;
+  width: 100%;
+  height: 50px;
+
+  font-size: 18px;
+
+  border-radius: 5px;
+}
+
+.register-root > form input[type="text"].short {
+  display: block;
+  float: left;
+  width: 50%;
+}
+
+.register-root > form span.short-info {
+  display: block;
+  float: left;
+  width: 49%;
+  margin-left: 1%;
+  height: 50px;
+}
+
+.register-root > form input[type="button"] {
+  outline: none;
+  width: 50%;
+  height: 40px;
+}
+
+.register-root > form input[type="button"]:hover,
+.register-root > form input[type="button"]:focus {
+  color: whitesmoke;
+  background-color: #999;
+}

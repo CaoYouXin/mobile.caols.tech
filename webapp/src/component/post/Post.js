@@ -69,6 +69,9 @@ class PostComponent extends Component {
 
   componentWillUnmount() {
     this.justMount = false;
+
+    const { resetComments } = this.props;
+    resetComments();
   }
 
   render() {
@@ -178,6 +181,11 @@ export default withRouter(connect(
     },
     comment: (postId, userName, atUserName, content) => {
 
+    },
+    resetComments: () => {
+      dispatch({
+        type: 'Reset_Comments'
+      })
     }
   })
 )(PostComponent));

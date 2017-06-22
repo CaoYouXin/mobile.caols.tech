@@ -2,10 +2,12 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import briefHeader from './briefHeader';
-import leftSideActive from './leftSide';
+import leftSide from './leftSide';
 import categories from './categories';
 import posts from './posts';
 import post from './post';
+import { toLocalStorage, fromLocalStorage } from '../util/json';
+import throttle from 'lodash/throttle';
 
 export default function configeStore() {
   let middlewares = [thunk];
@@ -14,11 +16,17 @@ export default function configeStore() {
     middlewares.push(logger);
   }
 
-  return createStore(combineReducers({
+  const store = createStore(combineReducers({
     categories,
     posts,
     post,
     briefHeader,
-    leftSideActive,
-  }), applyMiddleware(...middlewares));
+    leftSide,
+  }), fromLocalStorage(), applyMiddleware(...middlewares));
+
+  store.subscribe(throttle(() => {
+    toLocalStorage(store.getState());
+  }, 1000));
+
+  return store;
 }

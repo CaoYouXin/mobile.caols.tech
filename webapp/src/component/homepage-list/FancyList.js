@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getPost, setBrief } from '../../action';
 import calcClassName from '../../util/calcClassName';
+import forEach from 'foreach';
 
 class FancyListComponent extends Component {
   constructor(props) {
@@ -19,12 +20,16 @@ class FancyListComponent extends Component {
   }
 
   componentDidMount() {
-    const { fetchPosts, setHeader } = this.props;
+    const { fetchPosts, setHeader, listData } = this.props;
 
     setHeader();
-    fetchPosts(this.more.bind(this));
 
     window.addEventListener('scroll', this.scrollHander);
+
+    if (listData.length) {
+      return;
+    }
+    fetchPosts(this.more.bind(this));
   }
 
   componentWillUnmount() {
@@ -65,7 +70,7 @@ class FancyListComponent extends Component {
       return;
     }
 
-    activedItems.forEach(item => {
+    forEach(activedItems, item => {
       height += item.offsetHeight + 20;
     });
 

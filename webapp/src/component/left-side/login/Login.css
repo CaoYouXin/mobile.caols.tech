@@ -1,0 +1,57 @@
+.login-root {
+  width: 600px;
+  margin: 30px auto;
+
+  background-color: #333;
+
+  text-align: left;
+
+  padding: 1em;
+}
+
+.login-root > form fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.login-root > form fieldset + fieldset {
+  margin-top: 20px;
+}
+
+.login-root > form span {
+  color: whitesmoke;
+  font-size: x-large;
+}
+
+.login-root > form span:hover,
+.login-root > form span:focus {
+  color: greenyellow;
+}
+
+.login-root > form legend {
+  color: whitesmoke;
+}
+
+.login-root > form input[type="text"],
+.login-root > form input[type="password"] {
+  outline: none;
+  width: 100%;
+  height: 50px;
+
+  font-size: 18px;
+
+  border-radius: 5px;
+}
+
+.login-root > form input[type="button"] {
+  outline: none;
+  width: 50%;
+  height: 40px;
+}
+
+.login-root > form input[type="button"]:hover,
+.login-root > form input[type="button"]:focus {
+  color: whitesmoke;
+  background-color: #999;
+}
