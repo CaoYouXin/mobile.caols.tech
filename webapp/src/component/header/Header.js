@@ -65,7 +65,7 @@ class HeaderComponent extends Component {
         </div>
         <div style={{
           transition: 'height 1s',
-          height: this.props.brief ? '66px' : '220px'
+          height: this.props.brief ? '66px' : '500px'
         }}></div>
       </div>
     );

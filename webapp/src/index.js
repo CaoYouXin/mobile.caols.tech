@@ -6,7 +6,7 @@ import configeStore from './store';
 import './index.css';
 import App from './App';
 import Header from "./component/header/Header";
-import List from "./component/list/List";
+import List from "./component/homepage-list/FancyList";
 import Post from './component/post/Post';
 import registerServiceWorker from './registerServiceWorker';
 

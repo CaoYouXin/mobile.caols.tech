@@ -10,11 +10,13 @@ class PostComponent extends Component {
     super(props);
 
     this.state = {
-      replyFocused: false
+      replyFocused: false,
+      replayUser: ''
     };
 
     this.replyFocused = this.replyFocused.bind(this);
     this.replyBlur = this.replyBlur.bind(this);
+    this.replySubmit = this.replySubmit.bind(this);
   }
 
   replyFocused() {
@@ -24,6 +26,12 @@ class PostComponent extends Component {
 
   replyBlur() {
     this.setState({replyFocused: false});
+  }
+
+  replySubmit() {
+    // const {comment, post} = this.props;
+    // comment(post.id, )
+    this.textareaEl.value = '';
   }
 
   componentDidMount() {
@@ -127,11 +135,11 @@ class PostComponent extends Component {
           </ol>
         </div>
         <div id="reply" className={replyClassName}>
-          <div className="title"><span></span>发布评论...</div>
+          <div className="title"><span>{this.state.replayUser}</span>发布评论...</div>
           <textarea ref={textarea => this.textareaEl = textarea} placeholder="输入评论..."
             onFocus={this.replyFocused} onBlur={this.replyBlur} 
             className={replyClassName}></textarea>
-          <div className="publish-btn">发布</div>
+          <div className="publish-btn" onClick={this.replySubmit}>发布</div>
         </div>
         <ol className="comments" reversed="reversed">
           {comments.map(commentGroup => (
@@ -167,6 +175,9 @@ export default withRouter(connect(
     },
     processLike: (postId) => {
       dispatch(like(postId));
+    },
+    comment: (postId, userName, atUserName, content) => {
+
     }
   })
 )(PostComponent));

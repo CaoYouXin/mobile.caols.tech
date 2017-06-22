@@ -8,13 +8,12 @@ const pager = (state = {
       return Object.assign({}, state, {
         page: Math.max(1, Math.min(state.page + action.go, state.total))
       });
-    case 'Fetch_Post_Success':
     case 'Fetch_Category_Success':
-    case 'Fetch_Post_by_Category_Success':
+      const size = 6;
       return {
         page: 1,
-        total: action.response.length % 6 === 0 ? action.response.length / 6 : Math.ceil(action.response.length / 6),
-        size: 6
+        total: action.response.length % size === 0 ? action.response.length / size : Math.ceil(action.response.length / size),
+        size: size
       };
     default:
       return state;

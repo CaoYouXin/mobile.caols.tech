@@ -1,10 +1,11 @@
 .App-header {
     position: fixed;
+    z-index: 1;
 
     background: #222 url("sky.jpg") center;
     background-size: cover;
     width: 750px;
-    height: 220px;
+    height: 500px;
     color: white;
 
     transition: all 1s;
@@ -22,7 +23,7 @@
 
 .App-logo {
     position: absolute;
-    top: 50px;
+    top: 190px;
     left: calc(50% - 40px);
 
     width: 80px;
@@ -35,7 +36,7 @@
 
 .App-search {
     position: absolute;
-    top: 150px;
+    top: 290px;
     right: calc(50% - 200px);
 
     width: 400px;

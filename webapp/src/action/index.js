@@ -9,12 +9,13 @@ const getCategory = () => (dispatch) => {
   });
 }
 
-const getPost = () => (dispatch) => {
+const getPost = (cb) => (dispatch) => {
   getPosts().then(response => {
     dispatch({
       type: 'Fetch_Post_Success',
       response
     });
+    cb();
   });
 }
 
