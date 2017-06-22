@@ -16,7 +16,7 @@ class InfoComponent extends Component {
   }
 
   render() {
-    const { active, close, mode, toLoginMode, logout } = this.props;
+    const { active, close, mode, toLoginMode, logout, username } = this.props;
     return (
       <div>
         <div className={calcClassName({
@@ -37,6 +37,7 @@ class InfoComponent extends Component {
             "login": (<Login />),
             "register": (<Register />),
             "logined": (<div>
+              <p className="text">Hey, <strong>{username}</strong></p>
               <p className="text">欢迎登录我的博客，在这里你可以找到想要的文章，以及了解我的一切...</p>
               <div className="info-btn" onClick={(e) => this.toGithub()}>查看Github</div>
               <div className="info-btn" onClick={(e) => this.toStory()}>查看履历</div>
@@ -53,7 +54,8 @@ class InfoComponent extends Component {
 export default connect(
   (state) => ({
     active: state.leftSide.active,
-    mode: state.leftSide.mode
+    mode: state.leftSide.mode,
+    username: state.user.userName
   }),
   (dispatch) => ({
     close: () => {
@@ -67,8 +69,7 @@ export default connect(
     },
     logout: () => {
       dispatch({
-        type: 'Change_Left_Mode',
-        mode: 'unlogined'
+        type: 'User_Logout'
       })
     }
   })

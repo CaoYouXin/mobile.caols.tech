@@ -6,6 +6,7 @@ import leftSide from './leftSide';
 import categories from './categories';
 import posts from './posts';
 import post from './post';
+import user from './user';
 import { toLocalStorage, fromLocalStorage } from '../util/json';
 import throttle from 'lodash/throttle';
 
@@ -22,6 +23,7 @@ export default function configeStore() {
     post,
     briefHeader,
     leftSide,
+    user
   }), fromLocalStorage(), applyMiddleware(...middlewares));
 
   store.subscribe(throttle(() => {

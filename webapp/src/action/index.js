@@ -44,3 +44,4 @@ export { getCategory, getPost, getPostByCategoryName, getPostByName };
 export * from './links';
 export * from './feedback';
 export * from './flags';
+export * from './user';
