@@ -3,6 +3,7 @@ import "./Header.css";
 import { connect } from 'react-redux';
 import logo from "./logo.svg";
 import search from "./search.png";
+import calcClassName from '../../util/calcClassName';
 
 class HeaderComponent extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class HeaderComponent extends Component {
     this.inputFocused = this.inputFocused.bind(this);
     this.inputBlur = this.inputBlur.bind(this);
     this.keyUp = this.keyUp.bind(this);
+    this.logoClicked = this.logoClicked.bind(this);
   }
 
   componentDidMount() {
@@ -40,23 +42,24 @@ class HeaderComponent extends Component {
     this.setState({ focused: false });
   }
 
+  logoClicked() {
+    console.log('logo clicked.');
+  }
+
   render() {
-    let headerClassName = 'App-header';
-    if (this.props.brief) {
-      headerClassName += ' brief';
-    }
-
-    let searchClassName = 'App-search';
-    if (this.state.focused) {
-      searchClassName += ' focused';
-    }
-
     return (
       <div>
-        <div className={headerClassName}>
-          <img src={logo} className="App-logo" alt="logo" />
+        <div className={calcClassName({
+          "App-header": true,
+          "brief": !!this.props.brief
+        })}>
+          <img src={logo} className="App-logo" alt="logo"
+            onClick={(e) => this.logoClicked()} />
           <br />
-          <div className={searchClassName}>
+          <div className={calcClassName({
+            "App-search": true,
+            "focused": this.state.focused
+          })}>
             <img src={search} alt="search" />
             <input ref={(input) => { this.inputEl = input }}
               onKeyUp={this.keyUp}
