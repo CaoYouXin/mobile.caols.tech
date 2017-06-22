@@ -4,7 +4,7 @@ import defaultCover from './article.png';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getPost, setBrief } from '../../action';
-import calcClassName from '../../util/calcClassName';
+import { calcClassName } from '../../util';
 import forEach from 'foreach';
 
 class FancyListComponent extends Component {

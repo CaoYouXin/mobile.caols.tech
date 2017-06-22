@@ -3,7 +3,7 @@ import "./Header.css";
 import logo from "./logo.svg";
 import search from "./search.png";
 import { connect } from 'react-redux';
-import calcClassName from '../../util/calcClassName';
+import { calcClassName } from '../../util';
 import { setLeftSide } from '../../action';
 
 class HeaderComponent extends Component {
