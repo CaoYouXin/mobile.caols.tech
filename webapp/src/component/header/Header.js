@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import "./Header.css";
-import { connect } from 'react-redux';
 import logo from "./logo.svg";
 import search from "./search.png";
+import { connect } from 'react-redux';
 import calcClassName from '../../util/calcClassName';
+import { setLeftSide } from '../../action';
 
 class HeaderComponent extends Component {
   constructor(props) {
@@ -15,7 +16,6 @@ class HeaderComponent extends Component {
     this.inputFocused = this.inputFocused.bind(this);
     this.inputBlur = this.inputBlur.bind(this);
     this.keyUp = this.keyUp.bind(this);
-    this.logoClicked = this.logoClicked.bind(this);
   }
 
   componentDidMount() {
@@ -42,19 +42,17 @@ class HeaderComponent extends Component {
     this.setState({ focused: false });
   }
 
-  logoClicked() {
-    console.log('logo clicked.');
-  }
-
   render() {
+    const { brief, logoClicked } = this.props;
+
     return (
       <div>
         <div className={calcClassName({
           "App-header": true,
-          "brief": !!this.props.brief
+          "brief": !!brief
         })}>
           <img src={logo} className="App-logo" alt="logo"
-            onClick={(e) => this.logoClicked()} />
+            onClick={(e) => logoClicked()} />
           <br />
           <div className={calcClassName({
             "App-search": true,
@@ -68,7 +66,7 @@ class HeaderComponent extends Component {
         </div>
         <div style={{
           transition: 'height 1s',
-          height: this.props.brief ? '66px' : '500px'
+          height: !!brief ? '66px' : '500px'
         }}></div>
       </div>
     );
@@ -78,5 +76,10 @@ class HeaderComponent extends Component {
 export default connect(
   (state) => ({
     brief: state.briefHeader
+  }),
+  (dispatch) => ({
+    logoClicked: () => {
+      dispatch(setLeftSide(true));
+    }
   })
 )(HeaderComponent);

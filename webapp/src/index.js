@@ -6,6 +6,7 @@ import configeStore from './store';
 import './index.css';
 import App from './App';
 import Header from "./component/header/Header";
+import LeftSide from "./component/left-side/Info";
 import List from "./component/homepage-list/FancyList";
 import Post from './component/post/Post';
 import registerServiceWorker from './registerServiceWorker';
@@ -15,6 +16,7 @@ ReactDOM.render(
         <Router>
             <App>
                 <Header />
+                <LeftSide />
                 <Route exact={true} path='/' component={List} />
                 <Route path='/post/:postName' component={Post} />
             </App>

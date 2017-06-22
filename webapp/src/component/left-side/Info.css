@@ -1,0 +1,31 @@
+.info-root {
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.info-root-mask {
+  z-index: 99999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+
+.info-root-mask.active {
+  display: block;
+}
+
+.info-root-main {
+  z-index: 100000;
+  width: 640px;
+  height: 100%;
+  transform: translateX(-100%);
+  transition: transform .5s;
+  transition-timing-function: cubic-bezier(0,1,.57,1.35);
+  background-color: beige;
+}
+
+.info-root-main.active {
+  transform: translateX(0);
+}

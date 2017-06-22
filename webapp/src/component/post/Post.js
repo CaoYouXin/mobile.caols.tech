@@ -162,11 +162,11 @@ class PostComponent extends Component {
 
 export default withRouter(connect(
   (state) => ({
-    post: state.post,
-    prev: state.prev,
-    next: state.next,
-    top5: state.top5,
-    comments: state.comments
+    post: state.post.post,
+    prev: state.post.prev,
+    next: state.post.next,
+    top5: state.post.top5,
+    comments: state.post.comments
   }),
   (dispatch, ownProps) => ({
     fetch: dispatch,
