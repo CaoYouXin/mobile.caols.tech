@@ -7,6 +7,8 @@ const like = (postId) => (dispatch) => {
       postId,
       response
     })
+  }, error => {
+    alert(error);
   });
 }
 
@@ -16,6 +18,8 @@ const listComments = (postId) => (dispatch) => {
       type: 'Fetch_Comment_Success',
       response
     })
+  }, error => {
+    alert(error);
   });
 }
 

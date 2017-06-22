@@ -6,6 +6,8 @@ const loginAction = (username, password) => (dispatch) => {
       type: 'User_Login_Success',
       response
     });
+  }, error => {
+    alert(error);
   });
 }
 

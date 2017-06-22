@@ -1,7 +1,6 @@
 const logError = (ret) => {
   if (ret.code !== 20000) {
-    alert(ret.body);
-    return;
+    return Promise.reject(ret.body);
   }
 
   return Promise.resolve(ret.body);
@@ -21,7 +20,7 @@ const get = (url) => {
   });
 }
 
-const post = (url, params) => {
+const post = (url, params, exceptions) => {
   var myHeaders = new Headers({
     "Content-Type": "application/json"
   });
@@ -37,7 +36,7 @@ const post = (url, params) => {
   var myRequest = new Request(url);
 
   return fetch(myRequest, myInit).then(function (response) {
-    return response.json().then(logError);
+    return response.json().then(exceptions || logError);
   });
 }
 

@@ -6,6 +6,8 @@ const getTop5 = () => (dispatch) => {
       type: 'Fetch_Top5_Post_Success',
       response
     });
+  }, error => {
+    alert(error);
   });
 }
 
@@ -15,6 +17,8 @@ const getPrevPost = (update) => (dispatch) => {
       type: 'Fetch_Prev_Post_Success',
       response
     })
+  }, error => {
+    alert(error);
   });
 }
 
@@ -24,6 +28,8 @@ const getNextPost = (update) => (dispatch) => {
       type: 'Fetch_Next_Post_Success',
       response
     })
+  }, error => {
+    alert(error);
   });
 }
 

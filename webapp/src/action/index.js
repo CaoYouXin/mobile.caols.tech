@@ -6,6 +6,8 @@ const getCategory = () => (dispatch) => {
       type: 'Fetch_Category_Success',
       response
     });
+  }, error => {
+    alert(error);
   });
 }
 
@@ -16,6 +18,8 @@ const getPost = (cb) => (dispatch) => {
       response
     });
     cb();
+  }, error => {
+    alert(error);
   });
 }
 
@@ -26,7 +30,9 @@ const getPostByCategoryName = (categoryName, history) => (dispatch) => {
       response
     });
     history.push('/');
-  })
+  }, error => {
+    alert(error);
+  });
 }
 
 const getPostByName = (postName) => (dispatch) => {
@@ -35,6 +41,8 @@ const getPostByName = (postName) => (dispatch) => {
       type: 'Fetch_Post_by_Name_Success',
       response
     });
+  }, error => {
+    alert(error);
   });
 }
 
