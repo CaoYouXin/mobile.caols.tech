@@ -21,11 +21,11 @@ class PostComponent extends Component {
 
   replyFocused() {
     window.location.hash = 'reply';
-    this.setState({replyFocused: true});
+    this.setState({ replyFocused: true });
   }
 
   replyBlur() {
-    this.setState({replyFocused: false});
+    this.setState({ replyFocused: false });
   }
 
   replySubmit() {
@@ -51,6 +51,7 @@ class PostComponent extends Component {
 
     if (!!post && (!prevPost || prevPost.url !== post.url || this.justMount)) {
       this.justMount = false;
+      document.body.scrollTop = 0;
       getUrl(`http://${document.domain}:8082${post.url}`).then(html => {
         this.contentEl.innerHTML = html;
         let scriptElem = document.createElement('script');
@@ -118,13 +119,11 @@ class PostComponent extends Component {
         {
           prev && next && <div className="App-btns two in-middle">
             <div className="App-btn">上一篇: {
-              prev.name === '没有上一篇了' ?
-                prev.name :
+              !prev.id ? prev.name :
                 <Link to={`/post/${prev.name}`}>{prev.name}</Link>
             }</div>
             <div className="App-btn">下一篇: {
-              next.name === '没有下一篇了' ?
-                next.name :
+              !next.id ? next.name :
                 <Link to={`/post/${next.name}`}>{next.name}</Link>
             }</div>
           </div>
@@ -140,7 +139,7 @@ class PostComponent extends Component {
         <div id="reply" className={replyClassName}>
           <div className="title"><span>{this.state.replayUser}</span>发布评论...</div>
           <textarea ref={textarea => this.textareaEl = textarea} placeholder="输入评论..."
-            onFocus={this.replyFocused} onBlur={this.replyBlur} 
+            onFocus={this.replyFocused} onBlur={this.replyBlur}
             className={replyClassName}></textarea>
           <div className="publish-btn" onClick={this.replySubmit}>发布</div>
         </div>
