@@ -93,7 +93,7 @@ class PostComponent extends Component {
         }
         {
           post && <div className="box-wrapper">
-            <div className="category box" onClick={() => goCategory(post.categoryName, history)}>
+            <div className="category box" onClick={() => goCategory(post.categoryName, () => { history.push(`/category/${post.categoryName}`) })}>
               <i></i>
               <span>{post.categoryName}</span>
             </div>
@@ -106,7 +106,7 @@ class PostComponent extends Component {
         <div ref={content => this.contentEl = content} className="article-content"></div>
         {
           post && <div className="box-wrapper">
-            <div className="category box" onClick={() => goCategory(post.categoryName, history)}>
+            <div className="category box" onClick={() => goCategory(post.categoryName, () => { history.push(`/category/${post.categoryName}`) })}>
               <i></i>
               <span>{post.categoryName}</span>
             </div>

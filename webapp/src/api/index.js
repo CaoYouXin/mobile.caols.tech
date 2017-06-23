@@ -16,6 +16,10 @@ const getPostByName = (postName) => {
   return get(`http://${document.domain}:8080/blog_api/post/fetch_by_name?name=${postName}`);
 }
 
+const getCategoryByName = (categoryName) => {
+  return get(`http://${document.domain}:8080/blog_api/category/fetch_by_name?name=${categoryName}`);
+}
+
 const getUrl = (url) => {
   var myInit = {
     method: 'GET',
@@ -30,7 +34,7 @@ const getUrl = (url) => {
   });
 }
 
-export { getCategories, getPosts, getPostsByCategoryName, getPostByName, getUrl };
+export { getCategories, getPosts, getPostsByCategoryName, getPostByName, getCategoryByName, getUrl };
 export * from './links';
 export * from './feedback';
 export * from './user';

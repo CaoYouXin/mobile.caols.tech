@@ -5,6 +5,7 @@ import briefHeader from './briefHeader';
 import leftSide from './leftSide';
 import categories from './categories';
 import posts from './posts';
+import category from './category';
 import post from './post';
 import user from './user';
 import { toLocalStorage, fromLocalStorage } from '../util/json';
@@ -20,6 +21,7 @@ export default function configeStore() {
   const store = createStore(combineReducers({
     categories,
     posts,
+    category,
     post,
     briefHeader,
     leftSide,

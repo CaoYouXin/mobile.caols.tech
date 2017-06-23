@@ -10,6 +10,7 @@ import Header from "./component/header/Header";
 import LeftSide from "./component/left-side/Info";
 import Home from "./component/homepage/Home";
 import Post from './component/post/Post';
+import Category from './component/category/Category';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
@@ -20,6 +21,7 @@ ReactDOM.render(
                 <LeftSide />
                 <Route exact={true} path='/' component={Home} />
                 <Route path='/post/:postName' component={Post} />
+                <Route path='/category/:categoryName' component={Category} />
             </App>
         </Router>
     </Provider>, document.getElementById('root'));

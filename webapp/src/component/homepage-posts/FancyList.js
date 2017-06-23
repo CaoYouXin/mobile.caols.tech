@@ -3,7 +3,7 @@ import './FancyList.css';
 import defaultCover from './article.png';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getPost, setBrief } from '../../action';
+import { getPost } from '../../action';
 import { calcClassName } from '../../util';
 import { getPage } from '../../store/posts/pager';
 import forEach from 'foreach';
@@ -21,9 +21,7 @@ class FancyListComponent extends Component {
   }
 
   componentDidMount() {
-    const { fetchPosts, setHeader, listData } = this.props;
-
-    setHeader();
+    const { fetchPosts, listData } = this.props;
 
     window.addEventListener('scroll', this.scrollHander);
 
@@ -211,11 +209,8 @@ export default withRouter(connect(
     },
     more: () => {
       dispatch({
-        type: 'more'
+        type: 'Posts_more'
       });
-    },
-    setHeader: () => {
-      dispatch(setBrief(false));
     },
     go: (go) => {
       dispatch({
@@ -225,3 +220,5 @@ export default withRouter(connect(
     }
   })
 )(FancyListComponent));
+
+export { FancyListComponent };
