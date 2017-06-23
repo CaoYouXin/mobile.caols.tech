@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getPost, setBrief } from '../../action';
 import { calcClassName } from '../../util';
+import { getPage } from '../../store/posts/pager';
 import forEach from 'foreach';
 
 class FancyListComponent extends Component {
@@ -79,13 +80,81 @@ class FancyListComponent extends Component {
     }
   }
 
+  calcPager(pager) {
+    let state = 'first';
+    let count = 0;
+    let index = 1;
+    let ret = [];
+    for (let i = 0; i < 9; i++) {
+      if (index > pager.total) {
+        return ret;
+      }
+      switch (state) {
+        case 'first':
+          ret.push({
+            text: '' + index,
+            go: index - pager.page
+          });
+          index++;
+          state = 'second';
+          break;
+        case 'second':
+          const isContinue = index === pager.page - 2
+            || index === pager.page - 1 || index === pager.page
+            || index + 1 === pager.page - 2 || index - 1 === pager.page;
+          ret.push({
+            text: isContinue ? '' + index : '~~~',
+            go: isContinue ? index - pager.page : null
+          });
+          index++;
+          state = 'count';
+          count = 0;
+          break;
+        case 'count':
+          ret.push({
+            text: '' + index,
+            go: index - pager.page
+          });
+          index++;
+          count++;
+          if (count === 5) {
+            state = 'last_two';
+          }
+          break;
+        case 'last_two':
+          const isContinue2 = pager.total - 1 === pager.page + 3
+            || pager.total === pager.page + 3;
+          ret.push({
+            text: isContinue2 ? '' + index : '~~~',
+            go: isContinue2 ? index - pager.page : null
+          });
+          state = 'last_one';
+          break;
+        case 'last_one':
+          ret.push({
+            text: '' + pager.total,
+            go: pager.total - pager.page
+          });
+          return ret;
+        default:
+          throw new Error(`unknown state ${state}`);
+      }
+    }
+  }
+
   articleClicked(articleName) {
     const { history } = this.props;
     history.push(`/post/${articleName}`);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.listData !== this.props.listData) {
+      this.more();
+    }
+  }
+
   render() {
-    const { listData, actives } = this.props;
+    const { listData, actives, pager, go } = this.props;
 
     return (
       <div className="fancy-list-root">
@@ -116,6 +185,14 @@ class FancyListComponent extends Component {
               throw new Error(`unknown type : ${data.type}`);
           }
         })}
+        <div className="pager-wrapper">
+          {this.calcPager(pager).map((page, idx) => (
+            <div key={idx} className={calcClassName({
+              "pager": true,
+              "active": page.text === pager.page + ''
+            })} onClick={(e) => go(page.go)}>{page.text}</div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -123,8 +200,9 @@ class FancyListComponent extends Component {
 
 export default withRouter(connect(
   (state) => ({
-    listData: state.posts.list,
-    actives: state.posts.actives
+    listData: getPage(state.posts.list, state.posts.pager),
+    actives: state.posts.actives,
+    pager: state.posts.pager
   }),
   (dispatch) => ({
     fetchPosts: (cb) => {
@@ -137,6 +215,12 @@ export default withRouter(connect(
     },
     setHeader: () => {
       dispatch(setBrief(false));
+    },
+    go: (go) => {
+      dispatch({
+        type: 'go',
+        go
+      });
     }
   })
 )(FancyListComponent));

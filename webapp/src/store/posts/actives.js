@@ -4,6 +4,8 @@ const actives = (state = [], action) => {
       return [...state, true];
     case 'Fetch_Post_Success':
       return [];
+    case 'go':
+      return [];
     default:
       return state;
   }
