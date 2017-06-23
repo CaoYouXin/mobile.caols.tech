@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Info.css';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { calcClassName } from '../../util';
 import { setLeftSide } from '../../action';
 import Login from './login/Login';
@@ -13,6 +14,12 @@ class InfoComponent extends Component {
 
   toStory() {
     window.location.href = "http://demo.caols.tech/profile/index.html";
+  }
+
+  toHomePage() {
+    const { history, close } = this.props;
+    close();
+    history.push('/');
   }
 
   render() {
@@ -30,7 +37,7 @@ class InfoComponent extends Component {
           "active": active
         })}>
           <div className="avatar">
-            <div className="img"></div>
+            <div className="img" onClick={(e) => this.toHomePage()}></div>
           </div>
           {{
             "unlogined": (<div className="info-btn" onClick={(e) => toLoginMode()}>登录/注册</div>),
@@ -51,7 +58,7 @@ class InfoComponent extends Component {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   (state) => ({
     active: state.leftSide.active,
     mode: state.leftSide.mode,
@@ -73,4 +80,4 @@ export default connect(
       })
     }
   })
-)(InfoComponent);
+)(InfoComponent));
