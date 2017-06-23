@@ -4,7 +4,7 @@ const pager = (state = {
   size: 1
 }, action) => {
   switch (action.type) {
-    case 'go':
+    case 'Post_Pager_Go':
       return Object.assign({}, state, {
         page: Math.max(1, Math.min(state.page + action.go, state.total))
       });

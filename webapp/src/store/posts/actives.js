@@ -4,7 +4,7 @@ const actives = (state = [], action) => {
       return [...state, true];
     case 'Fetch_Post_Success':
       return [];
-    case 'go':
+    case 'Post_Pager_Go':
       return [];
     default:
       return state;

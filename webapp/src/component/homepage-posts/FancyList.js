@@ -149,6 +149,7 @@ class FancyListComponent extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.listData !== this.props.listData) {
+      document.body.scrollTop = 0;
       this.more();
     }
   }
@@ -218,7 +219,7 @@ export default withRouter(connect(
     },
     go: (go) => {
       dispatch({
-        type: 'go',
+        type: 'Post_Pager_Go',
         go
       });
     }
