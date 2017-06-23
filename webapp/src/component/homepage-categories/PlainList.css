@@ -1,5 +1,25 @@
 .plain-list-root {
-  text-align: left;
-
   background-color: #999;
+}
+
+.plain-list-title {
+  line-height: 30px;
+  color: white;
+}
+
+.plain-list-root > ul {
+  color: white;
+  list-style: none;
+  display: inline-block;
+  min-width: 300px;
+  margin-bottom: 10px;
+}
+
+.plain-list-root > ul > li {
+  line-height: 50px;
+  border-top: solid 1px #aaa;
+}
+
+.plain-list-root > ul > li:last-child {
+  border-bottom: solid 1px #aaa;
 }
