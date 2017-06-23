@@ -7,7 +7,7 @@ import { getUrl } from '../../api';
 import { FancyListComponent } from '../homepage-posts/FancyList';
 import { getPage } from '../../store/category/pager';
 
-const Posts = connect(
+const Posts = withRouter(connect(
   (state) => ({
     listData: getPage(state.category.posts, state.category.pager),
     actives: state.category.actives,
@@ -28,7 +28,7 @@ const Posts = connect(
       });
     }
   })
-)(FancyListComponent);
+)(FancyListComponent));
 
 class CategoryComponent extends Component {
   componentDidMount() {
