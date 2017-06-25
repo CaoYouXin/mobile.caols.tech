@@ -145,6 +145,10 @@ class FancyListComponent extends Component {
     history.push(`/post/${articleName}`);
   }
 
+  appClicked(url) {
+    window.open(`http://${document.domain}:8082${url}`);
+  }
+
   componentDidUpdate(prevProps) {
     if (prevProps.listData !== this.props.listData) {
       document.body.scrollTop = 0;
@@ -177,6 +181,23 @@ class FancyListComponent extends Component {
                   </div>
                   <div className="fancy-list-brief">
                     {data.brief}
+                  </div>
+                </div>
+              );
+            case 'App':
+              return (
+                <div key={data.id} className={calcClassName({
+                  "fancy-list-item": true,
+                  "active": actives[idx]
+                })} onClick={(e) => this.appClicked(data.url)}>
+                  <div className="fancy-list-screenshot">
+                    <img src={`http://${document.domain}:8082${data.screenshot}`} alt={data.name} />
+                  </div>
+                  <div className="fancy-list-date">
+                    {new Date(data.update).toDateString()}
+                  </div>
+                  <div className="fancy-list-title">
+                    <h1>{data.name}</h1>
                   </div>
                 </div>
               );
