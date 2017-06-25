@@ -3,7 +3,7 @@ import './Info.css';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { calcClassName } from '../../util';
-import { setLeftSide } from '../../action';
+import { setLeftSide, setLeftSideMode } from '../../action';
 import Login from './login/Login';
 import Register from './register/Register';
 
@@ -69,10 +69,7 @@ export default withRouter(connect(
       dispatch(setLeftSide(false));
     },
     toLoginMode: () => {
-      dispatch({
-        type: 'Change_Left_Mode',
-        mode: 'login'
-      })
+      dispatch(setLeftSideMode('login'));
     },
     logout: () => {
       dispatch({

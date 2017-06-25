@@ -2,21 +2,49 @@ import React, { Component } from "react";
 import "./Post.css";
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { setBrief, getPostByName, getTop5, getPrevPost, getNextPost, getPostByCategoryName, like, listComments } from '../../action';
+import {
+  setBrief, getPostByName, getTop5, getPrevPost, getNextPost, getPostByCategoryName,
+  like, listComments, makeComment2Post, setLeftSide, setLeftSideMode, makeComment2Comment
+} from '../../action';
 import { getUrl } from '../../api';
 
 class PostComponent extends Component {
   constructor(props) {
     super(props);
 
+    const { userName } = this.props;
+
     this.state = {
       replyFocused: false,
-      replayUser: ''
+      replayUser: [userName],
+      commentId: null
     };
 
     this.replyFocused = this.replyFocused.bind(this);
     this.replyBlur = this.replyBlur.bind(this);
     this.replySubmit = this.replySubmit.bind(this);
+    this.commentComment = this.commentComment.bind(this);
+    this.resetReplyUser = this.resetReplyUser.bind(this);
+  }
+
+  resetReplyUser(e) {
+    if (!!e) {
+      e.preventDefault();
+    }
+    const { userName } = this.props;
+    this.setState({
+      replayUser: [userName],
+      commentId: null
+    });
+  }
+
+  commentComment(e, atUserName, commentId) {
+    e.preventDefault();
+    this.setState({
+      replayUser: [this.state.replayUser[0], atUserName],
+      commentId
+    });
+    this.textareaEl.focus();
   }
 
   replyFocused() {
@@ -29,9 +57,17 @@ class PostComponent extends Component {
   }
 
   replySubmit() {
-    // const {comment, post} = this.props;
-    // comment(post.id, )
+    const { comment, post, goToLogin } = this.props;
+    const { replayUser, commentId } = this.state;
+
+    if (!replayUser[0]) {
+      goToLogin();
+      return;
+    }
+
+    comment(post.id, replayUser[0], this.textareaEl.value, replayUser[1], commentId);
     this.textareaEl.value = '';
+    this.resetReplyUser();
   }
 
   componentDidMount() {
@@ -43,10 +79,16 @@ class PostComponent extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { post: prevPost, match: prevMatch } = prevProps;
-    const { post, match, fetch } = this.props;
+    const { post: prevPost, match: prevMatch, userName: prevUserName } = prevProps;
+    const { post, match, fetch, userName } = this.props;
     if (prevMatch.params.postName !== match.params.postName) {
       fetch(getPostByName(match.params.postName));
+    }
+
+    if (prevUserName !== userName) {
+      this.setState({
+        replayUser: [userName]
+      });
     }
 
     if (!!post && (!prevPost || prevPost.url !== post.url || this.justMount)) {
@@ -137,7 +179,7 @@ class PostComponent extends Component {
           </ol>
         </div>
         <div id="reply" className={replyClassName}>
-          <div className="title"><span>{this.state.replayUser}</span>发布评论...</div>
+          <div className="title"><span onClick={this.resetReplyUser}>{this.state.replayUser.join(' @ ')}</span>发布评论...</div>
           <textarea ref={textarea => this.textareaEl = textarea} placeholder="输入评论..."
             onFocus={this.replyFocused} onBlur={this.replyBlur}
             className={replyClassName}></textarea>
@@ -146,11 +188,13 @@ class PostComponent extends Component {
         <ol className="comments" reversed="reversed">
           {comments.map(commentGroup => (
             <li key={commentGroup.id}>
-              <div>{commentGroup.userName} : {commentGroup.content} @{commentGroup.create}</div>
+              <div><a href="" onClick={(e) => { this.commentComment(e, commentGroup.userName, commentGroup.id) }}>{commentGroup.userName}</a>
+                : {commentGroup.content} @{commentGroup.create}</div>
               <ul className="comments-of-comment">
                 {
                   commentGroup.follows && commentGroup.follows.map(comment => (
-                    <li key={comment.id}>{comment.userName} @ {comment.atUserName} : {comment.content} @{comment.create}</li>
+                    <li key={comment.id}><a href="" onClick={(e) => { this.commentComment(e, comment.userName, commentGroup.id) }}>{comment.userName}</a>
+                      @ {comment.atUserName} : {comment.content} @{comment.create}</li>
                   ))
                 }
               </ul>
@@ -164,6 +208,7 @@ class PostComponent extends Component {
 
 export default withRouter(connect(
   (state) => ({
+    userName: state.user.userName,
     post: state.post.post,
     prev: state.post.prev,
     next: state.post.next,
@@ -178,13 +223,21 @@ export default withRouter(connect(
     processLike: (postId) => {
       dispatch(like(postId));
     },
-    comment: (postId, userName, atUserName, content) => {
-
+    comment: (postId, userName, content, atUserName, commentId) => {
+      if (!atUserName) {
+        dispatch(makeComment2Post(postId, userName, content));
+      } else {
+        dispatch(makeComment2Comment(postId, commentId, userName, atUserName, content));
+      }
     },
     resetComments: () => {
       dispatch({
         type: 'Reset_Comments'
       })
+    },
+    goToLogin: () => {
+      dispatch(setLeftSideMode('login'));
+      dispatch(setLeftSide(true));
     }
   })
 )(PostComponent));
