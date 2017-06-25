@@ -4,7 +4,8 @@ import logo from "./logo.svg";
 import search from "./search.png";
 import { connect } from 'react-redux';
 import { calcClassName } from '../../util';
-import { setLeftSide } from '../../action';
+import { setLeftSide, makeSearch } from '../../action';
+import analysis from './analysis';
 
 class HeaderComponent extends Component {
   constructor(props) {
@@ -30,7 +31,13 @@ class HeaderComponent extends Component {
 
   keyUp(e) {
     if (e.keyCode === 13) {
-      alert(this.inputEl.value);
+      const analysisResult = analysis(this.inputEl.value);
+      if (analysisResult.error) {
+        alert(analysisResult.error);
+        return;
+      }
+
+      this.props.search(analysisResult);
     }
   }
 
@@ -80,6 +87,9 @@ export default connect(
   (dispatch) => ({
     logoClicked: () => {
       dispatch(setLeftSide(true));
+    },
+    search: (analysisResult) => {
+      dispatch(makeSearch(analysisResult));
     }
   })
 )(HeaderComponent);

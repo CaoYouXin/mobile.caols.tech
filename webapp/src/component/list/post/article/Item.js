@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class Item extends Component {
   render() {
-    const { post } = this.props;
+    const { post, onClick } = this.props;
     return (
       <li className="post-item">
         <div className="post-title">{post.name}</div>
@@ -14,7 +14,7 @@ class Item extends Component {
         </div>
         <div className="post-brief">{post.brief}</div>
         <div className="App-btns one">
-          <div className="App-btn"><Link to={`/post/${post.name}`}>详情</Link></div>
+          <div className="App-btn" onClick={onClick}><Link to={`/post/${post.name}`}>详情</Link></div>
         </div>
       </li>
     );

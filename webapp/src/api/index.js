@@ -38,3 +38,4 @@ export { getCategories, getPosts, getPostsByCategoryName, getPostByName, getCate
 export * from './links';
 export * from './feedback';
 export * from './user';
+export * from './search';

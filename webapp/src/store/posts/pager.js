@@ -11,7 +11,7 @@ const pager = (state = {
     case 'Fetch_Post_Success':
       const size = 1;
       return {
-        page: 1,
+        page: 6,
         total: action.response.length % size === 0 ? action.response.length / size : Math.ceil(action.response.length / size),
         size: size
       };

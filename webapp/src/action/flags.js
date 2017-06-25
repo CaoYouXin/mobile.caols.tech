@@ -13,4 +13,9 @@ const setLeftSideMode = (mode) => ({
   mode
 });
 
-export { setBrief, setLeftSide, setLeftSideMode };
+const setRightSide = (active) => ({
+  type: 'right_side',
+  active
+});
+
+export { setBrief, setLeftSide, setLeftSideMode, setRightSide };

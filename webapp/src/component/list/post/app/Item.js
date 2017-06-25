@@ -4,6 +4,7 @@ import './Item.css';
 class Item extends Component {
   goDetails(e, url) {
     e.preventDefault();
+    this.props.onClick();
     window.open(`http://${document.domain}:8082${url}`);
   }
 

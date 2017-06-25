@@ -3,6 +3,7 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import briefHeader from './briefHeader';
 import leftSide from './leftSide';
+import rightSide from './rightSide';
 import categories from './categories';
 import posts from './posts';
 import category from './category';
@@ -25,6 +26,7 @@ export default function configeStore() {
     post,
     briefHeader,
     leftSide,
+    rightSide,
     user
   }), fromLocalStorage(), applyMiddleware(...middlewares));
 

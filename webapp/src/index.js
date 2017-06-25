@@ -8,6 +8,7 @@ import './index.css';
 import App from './App';
 import Header from "./component/header/Header";
 import LeftSide from "./component/left-side/Info";
+import RightSide from "./component/right-side/SearchResult";
 import Home from "./component/homepage/Home";
 import Post from './component/post/Post';
 import Category from './component/category/Category';
@@ -19,6 +20,7 @@ ReactDOM.render(
             <App>
                 <Header />
                 <LeftSide />
+                <RightSide />
                 <Route exact={true} path='/' component={Home} />
                 <Route path='/post/:postName' component={Post} />
                 <Route path='/category/:categoryName' component={Category} />
