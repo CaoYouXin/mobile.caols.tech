@@ -47,14 +47,14 @@
 .register-root > form input[type="text"].short {
   display: block;
   float: left;
-  width: 50%;
+  width: calc(100% - 310px);
 }
 
 .register-root > form span.short-info {
   display: block;
   float: left;
-  width: 49%;
-  margin-left: 1%;
+  width: 300px;
+  margin-left: 10px;
   height: 50px;
 }
 

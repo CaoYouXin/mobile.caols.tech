@@ -19,9 +19,9 @@ const fromLocalStorage = () => {
 const clearButToken = () => {
   let obj = JSON.parse(localStorage.getItem('obj') || '{}');
   localStorage.clear();
-  localStorage.setItem('obj', {
+  localStorage.setItem('obj', JSON.stringify({
     user: obj.user
-  });
+  }));
 }
 
 const getToken = () => {

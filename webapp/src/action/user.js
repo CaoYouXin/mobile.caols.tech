@@ -15,4 +15,20 @@ const login = (username, password) => (dispatch) => {
   });
 }
 
-export { login };
+const register = (username, password, imageCaptcha, captchaToken) => (dispatch) => {
+  post(getAPI("register"), {
+    UserName: username,
+    UserPassword: md5(password),
+    ImageCaptcha: imageCaptcha,
+    ImageCaptchaToken: captchaToken
+  }).then(response => {
+    dispatch({
+      type: 'Change_Left_Mode',
+      mode: 'login'
+    });
+  }, error => {
+    alert(error);
+  });
+}
+
+export { login, register };

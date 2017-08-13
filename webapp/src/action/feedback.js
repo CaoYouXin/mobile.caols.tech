@@ -2,11 +2,9 @@ import { getAPI, get, post } from '../http';
 
 const like = (postId) => (dispatch) => {
   get(getAPI("like")(postId)).then(response => {
-    dispatch({
-      type: 'Process_Like_Success',
-      postId,
-      response
-    })
+    if (response) {
+      alert('已成功点赞!');
+    }
   }, error => {
     alert(error);
   });
