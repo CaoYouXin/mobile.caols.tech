@@ -1,26 +1,37 @@
-import { search } from '../api';
-
-const makeSearch = (analysisResult) => (dispatch) => {
-  search(analysisResult).then(response => {
-    switch (response.type) {
-      case 'category':
-        dispatch({
-          type: 'Search_Category_Success',
-          response: response.response
-        });
-        break;
-      case 'post':
-        dispatch({
-          type: 'Search_Post_Success',
-          response: response.response
-        });
-        break;
-      default:
-        throw new Error(`unknown type ${response.type}`);
-    }
-  }).catch(error => {
-    alert(error);
-  });
+const parseCmd = (cmd) => {
+  return new RegExp(cmd.replace(/\s+/g, '|'));
 }
 
-export { makeSearch };
+const searchCategories = (regExp, ret, array) => {
+  array.forEach(c => {
+    if (regExp.test(c.BlogCategoryName)) {
+      ret.push(c);
+    }
+
+    if (!!c.ChildCategories && c.ChildCategories.length) {
+      searchCategories(regExp, ret, c.ChildCategories);
+    }
+  });
+
+  return ret;
+}
+
+export const makeSearch = (cmd, categories, posts) => (dispatch) => {
+  var regExp = parseCmd(cmd);
+
+  var c = searchCategories(regExp, [], categories);
+  dispatch({
+    type: 'Search_Category_Success',
+    response: c
+  });
+
+  var p = posts.filter(post => {
+    return regExp.test(post.BlogPostName)
+      || regExp.test(post.BlogPostCreateTime)
+      || regExp.test(post.BlogPostUpdateTime);
+  });
+  dispatch({
+    type: 'Search_Post_Success',
+    response: p
+  });
+}

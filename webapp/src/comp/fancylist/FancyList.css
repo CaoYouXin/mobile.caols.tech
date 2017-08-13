@@ -1,0 +1,30 @@
+.fancy-list-root {
+  background-color: #ddd;
+  overflow: hidden;
+}
+
+.pager-wrapper {
+  text-align: center;
+  color: #333;
+}
+
+.pager {
+  float: left;
+  width: 60px;
+  height: 60px;
+
+  margin: 8px 0 8px 10px;
+
+  border-radius: 50%;
+  border: 1px solid #999;
+  background-color: #AAA;
+
+  line-height: 60px;
+  font-size: 28px;
+}
+
+.pager.active {
+  font-size: 36px;
+  color: whitesmoke;
+  background-color: #333;
+}

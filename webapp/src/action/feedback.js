@@ -1,7 +1,7 @@
-import { like as processLike, listComments as fetchComments, commentPost, commentComment } from '../api';
+import { getAPI, get, post } from '../http';
 
 const like = (postId) => (dispatch) => {
-  processLike(postId).then(response => {
+  get(getAPI("like")(postId)).then(response => {
     dispatch({
       type: 'Process_Like_Success',
       postId,
@@ -13,7 +13,7 @@ const like = (postId) => (dispatch) => {
 }
 
 const listComments = (postId) => (dispatch) => {
-  fetchComments(postId).then(response => {
+  get(getAPI("FetchComments")(postId)).then(response => {
     dispatch({
       type: 'Fetch_Comment_Success',
       response
@@ -23,26 +23,30 @@ const listComments = (postId) => (dispatch) => {
   });
 }
 
-const makeComment2Post = (postId, userName, content) => (dispatch) => {
-  commentPost(postId, userName, content).then(response => {
-    dispatch({
-      type: 'Comment_Post_Success',
-      response
-    });
+const makeComment = (postId, writerId, writerName, content, commenteeId, commenteeName, commentId) => (dispatch) => {
+  post(getAPI("Comment"), {
+    BlogPostId: postId,
+    WriterUserId: writerId,
+    CommentContent: content,
+    ParentCommentId: commentId,
+    CommenteeUserId: commenteeId
+  }).then(response => {
+    response.WriterName = writerName;
+    response.CommenteeName = commenteeName;
+    if (!commentId) {
+      dispatch({
+        type: 'Comment_Post_Success',
+        response
+      });
+    } else {
+      dispatch({
+        type: 'Comment_Comment_Success',
+        response
+      });
+    }
   }, error => {
     alert(error);
   });
 }
 
-const makeComment2Comment = (postId, commentId, userName, atUserName, content) => (dispatch) => {
-  commentComment(postId, commentId, userName, atUserName, content).then(response => {
-    dispatch({
-      type: 'Comment_Comment_Success',
-      response
-    }, error => {
-      alert(error);
-    });
-  })
-}
-
-export { like, listComments, makeComment2Post, makeComment2Comment };
+export { like, listComments, makeComment };

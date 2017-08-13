@@ -1,8 +1,7 @@
 const toLocalStorage = (obj) => {
   try {
     window.localStorage.setItem('obj', JSON.stringify(obj));
-  } catch (e) {
-  }
+  } catch (e) { }
 }
 
 const fromLocalStorage = () => {
@@ -17,4 +16,22 @@ const fromLocalStorage = () => {
   }
 }
 
-export { toLocalStorage, fromLocalStorage };
+const clearButToken = () => {
+  let obj = JSON.parse(localStorage.getItem('obj') || '{}');
+  localStorage.clear();
+  localStorage.setItem('obj', {
+    user: obj.user
+  });
+}
+
+const getToken = () => {
+  let obj = JSON.parse(localStorage.getItem('obj') || '{}');
+  return (obj.user || { UserToken: null }).UserToken;
+}
+
+export {
+  toLocalStorage,
+  fromLocalStorage,
+  clearButToken,
+  getToken
+};

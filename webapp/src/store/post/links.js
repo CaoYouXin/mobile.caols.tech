@@ -16,13 +16,4 @@ const next = (state = null, action) => {
   }
 }
 
-const top5 = (state = [], action) => {
-  switch (action.type) {
-    case 'Fetch_Top5_Post_Success':
-      return [...action.response];
-    default:
-      return state;
-  }
-}
-
-export { prev, next, top5 };
+export { prev, next };

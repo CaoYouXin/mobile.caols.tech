@@ -1,0 +1,15 @@
+.content {
+  width: 100%;
+}
+
+.dimmer {
+  background-color: rgba(0, 0, 0, 0.618);
+}
+
+.content.dimmer.loading {
+  height: 300px;
+}
+
+.content.dimmer:not(.loading) {
+  height: 0;
+}

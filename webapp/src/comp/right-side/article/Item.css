@@ -1,0 +1,17 @@
+li.post-item {
+  width: inherit;
+}
+
+li.post-item > .post-title {
+  font-size: xx-large;
+  line-height: 1.5em;
+
+  border-bottom: dashed 1px #dddddd;
+}
+
+li.post-item > .post-brief {
+  border-bottom: dashed 1px #dddddd;
+
+  max-height: 300px;
+  overflow: hidden;
+}
