@@ -1,6 +1,10 @@
 import { getToken } from '../util';
 
 const logError = (ret) => {
+  if (ret.code === 40002) {
+    return Promise.reject({ toLogin: true });
+  }
+
   if (ret.code !== 20000) {
     return Promise.reject(ret.body);
   }
