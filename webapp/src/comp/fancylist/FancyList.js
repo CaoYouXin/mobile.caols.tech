@@ -4,6 +4,7 @@ import { AppItem } from './app';
 import { PostItemWithRouter } from './post';
 import { calcClassName } from '../../util';
 import forEach from 'foreach';
+import deepEqual from 'deep-equal';
 
 export class FancyList extends Component {
 
@@ -35,16 +36,20 @@ export class FancyList extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { categoryId: prevCategoryId } = prevProps;
-    const { categoryId, fetchPosts } = this.props;
+    const { categoryId: prevCategoryId, listData: prevListData } = prevProps;
+    const { categoryId, fetchPosts, listData } = this.props;
 
     if (prevCategoryId !== categoryId) {
       fetchPosts(this.more);
     }
+
+    if (!deepEqual(prevListData, listData)) {
+      this.checkMore(window.scrollY);
+    }
   }
 
   render() {
-    const { listData, actives, pager } = this.props;
+    const { listData, actives, pager, go } = this.props;
     return (
       <div className="fancy-list-root">
         {
@@ -63,17 +68,11 @@ export class FancyList extends Component {
             <div key={idx} className={calcClassName({
               "pager": true,
               "active": page.text === pager.page + ''
-            })} onClick={(e) => this.toGo(page.go)}>{page.text}</div>
+            })} onClick={(e) => go(page.go)}>{page.text}</div>
           ))}
         </div>
       </div>
     );
-  }
-
-  toGo(page) {
-    const { go } = this.props;
-    go(page);
-    this.checkMore(window.scrollY);
   }
 
   scrollHander(e) {
