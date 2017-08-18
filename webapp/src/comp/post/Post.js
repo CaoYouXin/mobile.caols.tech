@@ -67,7 +67,7 @@ class PostComponent extends Component {
 
     if (!breadcrumb.length && !!categories && !!post) {
       this.setState({
-        breadcrumb: getBreadcrumb([], categories || [], 0, post.BlogCategoryId)
+        breadcrumb: getBreadcrumb([], categories || [], post.BlogCategoryId)
       });
     }
   }

@@ -1,38 +1,30 @@
 import list from './list';
 
-export const getBreadcrumb = (now, cs, idx, id) => {
-  if (idx >= cs.length) {
-    return now;
-  }
+export const getBreadcrumb = (now, cs, id) => {
 
-  let c = cs[idx];
-  now = [...now, c];
+  for (let i = 0; i < cs.length; i++) {
+    let c = cs[i];
+    now = [...now, c];
 
-  if (c.BlogCategoryId + '' === id + '') {
-    return now;
-  }
+    if (c.BlogCategoryId + '' === id + '') {
+      return now;
+    }
 
-  let cc = cs[idx].ChildCategories || [];
-  if (!cc.length) {
-    now.pop();
-    return now;
-  }
+    let cc = c.ChildCategories || [];
+    if (!cc.length) {
+      now.pop();
+      continue;
+    }
 
-  let cIdx = 0,
-    newNow = [];
-  while (cIdx < cc.length) {
-    newNow = getBreadcrumb(now, cc, cIdx++, id);
+    let newNow = this.genBreadcrumb(now, cc, id);
     if (newNow.length > now.length) {
-      break;
+      return newNow;
+    } else {
+      now.pop();
     }
   }
+  return now;
 
-  if (newNow.length > now.length) {
-    return newNow;
-  } else {
-    now.pop();
-    return now;
-  }
 };
 
 export default list;

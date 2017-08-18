@@ -49,7 +49,7 @@ class CategoryComponent extends Component {
 
     if (!!categories && categories.length) {
       this.setState({
-        breadcrumbs: getBreadcrumb([], categories, 0, match.params.categoryId)
+        breadcrumbs: getBreadcrumb([], categories, match.params.categoryId)
       });
       return;
     }
