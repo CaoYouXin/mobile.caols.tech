@@ -49,7 +49,7 @@ export class FancyList extends Component {
   }
 
   render() {
-    const { listData, actives, pager, go } = this.props;
+    const { listData, actives, pager } = this.props;
     return (
       <div className="fancy-list-root">
         {
@@ -68,11 +68,17 @@ export class FancyList extends Component {
             <div key={idx} className={calcClassName({
               "pager": true,
               "active": page.text === pager.page + ''
-            })} onClick={(e) => go(page.go)}>{page.text}</div>
+            })} onClick={(e) => this.toGo(page.go)}>{page.text}</div>
           ))}
         </div>
       </div>
     );
+  }
+
+  toGo(page) {
+    const { go } = this.props;
+    document.body.scrollTop = 0;
+    go(page);
   }
 
   scrollHander(e) {
