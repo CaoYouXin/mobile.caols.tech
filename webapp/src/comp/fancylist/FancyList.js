@@ -20,13 +20,9 @@ export class FancyList extends Component {
   }
 
   componentDidMount() {
-    const { fetchPosts, listData } = this.props;
-
     window.addEventListener('scroll', this.scrollHander);
 
-    if (listData.length) {
-      return;
-    }
+    const { fetchPosts } = this.props;
     fetchPosts(this.more);
   }
 

@@ -44,15 +44,8 @@ class CategoryComponent extends Component {
   }
 
   componentDidMount() {
-    const { setHeader, categories, fetchCategory, match } = this.props;
+    const { setHeader, fetchCategory } = this.props;
     setHeader();
-
-    if (!!categories && categories.length) {
-      this.setState({
-        breadcrumbs: getBreadcrumb([], categories, match.params.categoryId)
-      });
-      return;
-    }
     fetchCategory();
   }
 
@@ -63,7 +56,7 @@ class CategoryComponent extends Component {
 
     if (!breadcrumbs.length && !!categories) {
       this.setState({
-        breadcrumbs: getBreadcrumb([], categories, 0, match.params.categoryId)
+        breadcrumbs: getBreadcrumb([], categories, match.params.categoryId)
       });
     }
 
