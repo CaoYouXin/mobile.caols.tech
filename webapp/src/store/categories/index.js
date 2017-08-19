@@ -16,7 +16,7 @@ export const getBreadcrumb = (now, cs, id) => {
       continue;
     }
 
-    let newNow = this.genBreadcrumb(now, cc, id);
+    let newNow = getBreadcrumb(now, cc, id);
     if (newNow.length > now.length) {
       return newNow;
     } else {
