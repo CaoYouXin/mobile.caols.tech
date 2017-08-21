@@ -58,7 +58,7 @@ export class IframeContent extends Component {
         <div className={calcClassName({
           "content dimmer": true,
           "loading": loading
-        })}></div>
+        })}>loading...</div>
         <iframe src={getAPI('server') + '/serve' + url} scrolling="no" className="content"
           title={url} style={{ height: height + 'px' }}></iframe>
       </div>
