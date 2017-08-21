@@ -15,4 +15,5 @@
 
 .content.dimmer:not(.loading) {
   height: 0;
+  overflow: hidden;
 }
