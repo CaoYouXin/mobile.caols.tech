@@ -1,7 +1,7 @@
 import { getToken } from '../util';
 
 const logError = (ret) => {
-  if (ret.code === 40002) {
+  if (ret.code === 50001) {
     return Promise.reject({ toLogin: true });
   }
 
