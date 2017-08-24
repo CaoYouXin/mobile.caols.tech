@@ -1,5 +1,6 @@
 const toLocalStorage = (obj) => {
   try {
+    delete obj.categories;
     window.localStorage.setItem('obj', JSON.stringify(obj));
   } catch (e) { }
 }
