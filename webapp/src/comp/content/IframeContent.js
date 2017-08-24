@@ -23,6 +23,18 @@ export class IframeContent extends Component {
 
     let data = JSON.parse(e.data);
 
+    if (data.path && data.height) {
+      this.loadMsg(data);
+    } else if (data.url && data.target) {
+      this.openMsg(data);
+    }
+  }
+
+  openMsg(data) {
+    window.open(data.url, data.target);
+  }
+
+  loadMsg(data) {
     if (this.props.url !== data.path) {
       return;
     }
