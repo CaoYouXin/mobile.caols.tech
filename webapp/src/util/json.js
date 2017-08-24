@@ -1,6 +1,5 @@
 const toLocalStorage = (obj) => {
   try {
-    delete obj.categories;
     window.localStorage.setItem('obj', JSON.stringify(obj));
   } catch (e) { }
 }
@@ -11,7 +10,9 @@ const fromLocalStorage = () => {
     if (serialized === null) {
       return undefined;
     }
-    return JSON.parse(serialized);
+    let data = JSON.parse(serialized);
+    delete data.categories;
+    return data;
   } catch (e) {
     return undefined;
   }
