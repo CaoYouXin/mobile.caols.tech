@@ -78,6 +78,7 @@ class CategoryComponent extends Component {
           category && <h1>{category.BlogCategoryName}</h1>
         }
         <p className="breadcrumb">
+          <span>/ <Link to="/">&nbsp;首页&nbsp;</Link> </span>
           {
             breadcrumbs && breadcrumbs.map((bc, idx) => {
               if (idx === breadcrumbs.length - 1) {

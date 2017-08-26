@@ -91,6 +91,7 @@ class PostComponent extends Component {
       <div className="App-post">
         {post && <h1>{post.BlogPostName}</h1>}
         <p className="breadcrumb">
+          <span>/ <Link to="/">&nbsp;首页&nbsp;</Link> </span>
           {
             breadcrumb && breadcrumb.map(bc => <span key={bc.BlogCategoryId}>/ <Link to={`/category/${bc.BlogCategoryId}`}>&nbsp;{bc.BlogCategoryName}&nbsp;</Link> </span>)
           }
