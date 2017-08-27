@@ -43,6 +43,14 @@ const apis = {
       return `http://${document.domain}:9999/api/blog/like/${postId}`;
     }
   },
+  "liked": {
+    "prod": function (postId) {
+      return `http://server.caols.tech:9999/api/blog/liked/${postId}`;
+    },
+    "dev": function (postId) {
+      return `http://${document.domain}:9999/api/blog/liked/${postId}`;
+    }
+  },
   "FetchComments": {
     "prod": function (postId) {
       return `http://server.caols.tech:9999/api/blog/comment/client/${postId}`;

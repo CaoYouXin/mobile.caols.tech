@@ -5,10 +5,11 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import {
   setBrief, getPostById, getCategories, getPrevPost, getNextPost,
-  like, listComments, makeComment, setLeftSide, setLeftSideMode
+  like, listComments, makeComment, setLeftSide, setLeftSideMode, getLiked
 } from '../../action';
 import { IframeContent } from '../content/IframeContent';
 import { getBreadcrumb } from '../../store/categories';
+import { calcClassName } from '../../util';
 
 class PostComponent extends Component {
   constructor(props) {
@@ -63,6 +64,7 @@ class PostComponent extends Component {
       fetch(getPrevPost(post.BlogPostUpdateTime));
       fetch(getNextPost(post.BlogPostUpdateTime));
       fetch(listComments(post.BlogPostId));
+      fetch(getLiked(post.BlogPostId));
     }
 
     if (!breadcrumb.length && !!categories && !!post) {
@@ -85,7 +87,7 @@ class PostComponent extends Component {
       replyClassName += ' focused';
     }
 
-    const { post, prev, next, comments } = this.props;
+    const { post, prev, next, comments, liked } = this.props;
     const { breadcrumb } = this.state;
     return (
       <div className="App-post">
@@ -113,7 +115,10 @@ class PostComponent extends Component {
             !next ? '没有下一篇了' : <Link to={`/post/${next.BlogPostId}`}>{next.BlogPostName}</Link>
           }</div>
         </div>
-        <div className="like">
+        <div className={calcClassName({
+          "like": true,
+          "liked": liked
+        })}>
           <img src={likePNG} alt="点赞" onClick={this.like} />
           <hr />
         </div>
@@ -210,6 +215,7 @@ export default withRouter(connect(
     post: state.post.post,
     prev: state.post.prev,
     next: state.post.next,
+    liked: state.post.liked,
     comments: state.post.comments
   }),
   (dispatch, ownProps) => ({

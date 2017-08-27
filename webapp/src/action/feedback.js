@@ -4,6 +4,10 @@ import { setLeftSide, setLeftSideMode } from './flags';
 const like = (postId) => (dispatch) => {
   get(getAPI("like")(postId)).then(response => {
     if (response) {
+      dispatch({
+        type: 'Fetch_Post_Liked_Success',
+        response: true
+      });
       alert('已成功点赞!');
     }
   }, error => {
@@ -15,6 +19,16 @@ const like = (postId) => (dispatch) => {
 
     alert(error);
   });
+}
+
+const getLiked = (postId) => (dispatch) => {
+  get(getAPI("liked")(postId)).then(
+    response => dispatch({
+      type: 'Fetch_Post_Liked_Success',
+      response
+    }),
+    error => alert(error)
+  );
 }
 
 const listComments = (postId) => (dispatch) => {
@@ -60,4 +74,4 @@ const makeComment = (postId, writerId, writerName, content, commenteeId, comment
   });
 }
 
-export { like, listComments, makeComment };
+export { like, listComments, makeComment, getLiked };
