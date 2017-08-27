@@ -8,8 +8,8 @@ div.like {
 div.like.liked > img {
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
-  border: solid 3px transparent;
-  border-bottom: solid 21px royalblue;
+  border: solid 1px transparent;
+  border-bottom: solid 6px #EAE808;
 }
 
 div.like>hr {
