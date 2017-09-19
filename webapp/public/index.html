@@ -22,6 +22,17 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
   <title>曹力升的博客</title>
+
+  <script>
+    var UA = navigator.userAgent,
+      isAndroid = /android|adr/gi.test(UA),
+      isIos = /iphone|ipod|ipad/gi.test(UA) && !isAndroid, // 据说某些国产机的UA会同时包含 android iphone 字符
+      isMobile = isAndroid || isIos;  // 粗略的判断
+
+    if (!isMobile) {
+      location.href = "http://caols.tech/";
+    }
+  </script>
 </head>
 
 <body>
