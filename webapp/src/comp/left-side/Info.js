@@ -14,7 +14,7 @@ class InfoComponent extends Component {
   }
 
   toStory() {
-    window.location.href = "http://demo.caols.tech/profile/index.html";
+    window.location.href = "http://diary.caols.tech/";
   }
 
   toHomePage() {
@@ -47,7 +47,7 @@ class InfoComponent extends Component {
             "register": (<Register />),
             "logined": (<div>
               <p className="text">Hey, <strong>{username}</strong></p>
-              <p className="text">欢迎登录我的博客，在这里你可以找到想要的文章，以及了解我的一切...</p>
+              <p className="text">欢迎登录我的博客，希望在这里你可以找到想要的文章...</p>
               <div className="info-btn" onClick={(e) => this.toGithub()}>查看Github</div>
               <div className="info-btn" onClick={(e) => this.toStory()}>查看履历</div>
               <br />
